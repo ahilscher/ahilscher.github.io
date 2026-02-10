@@ -127,21 +127,33 @@ nav.scrolled {
   background: var(--midnight);
 }
 
-/* VIDEO BACKGROUND */
-.hero-video {
+/* VIDEO BACKGROUND (YouTube iframe) */
+.hero-video-wrap {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  inset: -60px; /* oversize to hide YouTube UI edges and black bars */
   z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-video-wrap iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120vw;
+  height: 120vh;
+  min-width: 120%;
+  min-height: 120%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  pointer-events: none;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(11,26,46,0.45) 0%, rgba(11,26,46,0.3) 40%, rgba(11,26,46,0.65) 100%);
+    linear-gradient(to bottom, rgba(11,26,46,0.55) 0%, rgba(11,26,46,0.35) 40%, rgba(11,26,46,0.7) 100%);
   z-index: 1;
 }
 
@@ -871,6 +883,7 @@ footer {
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
+  .hero-video-wrap { display: none; }
   .nav-links { display: none; }
   .mobile-toggle { display: flex; }
 
@@ -928,28 +941,19 @@ footer {
   <div class="hero-bg-drift"></div>
   <div class="hero-grain"></div>
 
-  <!--
-    ╔══════════════════════════════════════════════════════════════╗
-    ║  🎬  TO ADD THE REAL VIDEO:                                 ║
-    ║                                                              ║
-    ║  1. Go to lonestarrelays.com/tir in Chrome                  ║
-    ║  2. Right-click the background video → Inspect              ║
-    ║  3. Find the <video> tag → copy the src URL                 ║
-    ║  4. Replace VIDEO_URL_HERE below with that URL              ║
-    ║                                                              ║
-    ║  The animated gradient fallback will show until the video    ║
-    ║  loads, so it always looks good.                             ║
-    ╚══════════════════════════════════════════════════════════════╝
-  -->
-  <video class="hero-video" autoplay muted loop playsinline
-         poster=""
-         id="heroVideo"
-         style="display:none;">
-    <source src="VIDEO_URL_HERE" type="video/mp4">
-  </video>
+  <!-- YouTube background video: 2022 TIR Family -->
+  <div class="hero-video-wrap" id="heroVideoWrap">
+    <iframe id="heroYT"
+      src="https://www.youtube.com/embed/zIux_c5-LuE?autoplay=1&mute=1&loop=1&playlist=zIux_c5-LuE&controls=0&showinfo=0&rel=0&start=4&playsinline=1&cc_load_policy=0&modestbranding=1&enablejsapi=1"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      title="TIR Background Video">
+    </iframe>
+  </div>
 
   <!-- Dark overlay for text readability over video -->
-  <div class="hero-overlay" id="heroOverlay" style="display:none;"></div>
+  <div class="hero-overlay"></div>
 
   <div class="hero-content">
     <span class="hero-badge">March 28–29, 2026 &nbsp;·&nbsp; Gonzales → Houston</span>
@@ -1020,7 +1024,7 @@ footer {
       <div>
         <span class="leg-tag">The Starting Cannon</span>
         <h3>Gonzales</h3>
-        <p>Every team gets a cannon boom and their own walk-up song. You run a loop together through downtown, past the "Come and Take It" monument, and then you're off. It's loud and it's perfect.</p>
+        <p>Every team gets a cannon boom and their own walk-up song. You run a loop together through downtown, past the "Come and Take It" monument, and then you're off.</p>
       </div>
     </div>
     <div class="route-stop reveal">
@@ -1248,18 +1252,15 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Video background: show video + overlay when it can play, hide fallback gradient
-const heroVideo = document.getElementById('heroVideo');
-const heroOverlay = document.getElementById('heroOverlay');
-
-heroVideo.addEventListener('canplay', function() {
-  heroVideo.style.display = 'block';
-  heroOverlay.style.display = 'block';
-  // Fade out the gradient fallback layers
-  document.querySelector('.hero-bg').style.opacity = '0';
-  document.querySelector('.hero-bg').style.transition = 'opacity 1.5s ease';
-  document.querySelector('.hero-bg-drift').style.opacity = '0';
-  document.querySelector('.hero-bg-drift').style.transition = 'opacity 1.5s ease';
+// YouTube background: fade out gradient fallback after iframe loads
+const heroYT = document.getElementById('heroYT');
+heroYT.addEventListener('load', function() {
+  setTimeout(function() {
+    const bg = document.querySelector('.hero-bg');
+    const drift = document.querySelector('.hero-bg-drift');
+    if (bg) { bg.style.transition = 'opacity 2s ease'; bg.style.opacity = '0'; }
+    if (drift) { drift.style.transition = 'opacity 2s ease'; drift.style.opacity = '0'; }
+  }, 1500); // small delay to let video actually start playing
 });
 
 // Scroll reveal

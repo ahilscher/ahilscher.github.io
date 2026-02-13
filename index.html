@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texas Independence Relay — 200 Miles of Texas Glory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --midnight: #0b1a2e;
+  --navy: #132744;
+  --gold: #c8963e;
+  --gold-light: #dbb06b;
+  --cream: #f5efe6;
+  --parchment: #ede4d4;
+  --rust: #8b3a2a;
+  --dust: #a89478;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-body: #3d3d3d;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-dark);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============ NAV ============ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(11, 26, 46, 0.97);
+  backdrop-filter: blur(10px);
+  padding: 0.7rem 2.5rem;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-logo .star { font-size: 1.2rem; }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  background: var(--gold) !important;
+  color: var(--midnight) !important;
+  padding: 0.55rem 1.5rem;
+  border-radius: 2px;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  transition: all 0.3s !important;
+}
+
+.nav-cta:hover {
+  background: var(--gold-light) !important;
+  transform: translateY(-1px);
+}
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.mobile-toggle span {
+  width: 26px;
+  height: 2px;
+  background: var(--gold);
+  transition: all 0.3s;
+}
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--midnight);
+}
+
+/* VIDEO BACKGROUND (YouTube iframe) */
+.hero-video-wrap {
+  position: absolute;
+  inset: -60px; /* oversize to hide YouTube UI edges and black bars */
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-video-wrap iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120vw;
+  height: 120vh;
+  min-width: 120%;
+  min-height: 120%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(11,26,46,0.55) 0%, rgba(11,26,46,0.35) 40%, rgba(11,26,46,0.7) 100%);
+  z-index: 1;
+}
+
+/* ANIMATED FALLBACK (shows if video hasn't loaded yet, or as a gorgeous standalone) */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(200, 150, 62, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(139, 58, 42, 0.12) 0%, transparent 50%),
+    linear-gradient(175deg, #0b1a2e 0%, #1a3355 40%, #132744 70%, #0b1a2e 100%);
+  z-index: 0;
+}
+
+.hero-bg-drift {
+  position: absolute;
+  inset: -50%;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(200,150,62,0.07) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(100,140,200,0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(139,58,42,0.04) 0%, transparent 40%);
+  animation: heroDrift 20s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes heroDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(3%, -2%) scale(1.02); }
+  66% { transform: translate(-2%, 3%) scale(0.98); }
+  100% { transform: translate(1%, -1%) scale(1.01); }
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(200, 150, 62, 0.4);
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 2rem;
+  animation: fadeInDown 1s ease 0.2s both;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  color: var(--white);
+  line-height: 0.95;
+  letter-spacing: 4px;
+  margin-bottom: 0.5rem;
+  animation: fadeInUp 1s ease 0.4s both;
+}
+
+.hero-title .gold { color: var(--gold); }
+
+.hero-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 1s ease 0.6s both;
+}
+
+/* Countdown */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 1s ease 0.8s both;
+}
+
+.countdown-unit {
+  text-align: center;
+}
+
+.countdown-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--white);
+  line-height: 1;
+  display: block;
+  position: relative;
+}
+
+.countdown-num::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.countdown-label {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dust);
+  margin-top: 0.7rem;
+  display: block;
+  font-weight: 600;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 1s ease 1s both;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--midnight);
+  padding: 1rem 2.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  transform: translateX(-100%);
+  transition: transform 0.4s;
+}
+
+.btn-primary:hover::after { transform: translateX(0); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(200,150,62,0.35); }
+
+.btn-ghost {
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--white);
+  padding: 1rem 2.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  animation: bounce 2s infinite;
+}
+
+.hero-scroll span {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  margin: 0 auto 0.5rem;
+}
+
+.hero-scroll small {
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dust);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ============ STATS BAR ============ */
+.stats-bar {
+  background: var(--midnight);
+  border-top: 1px solid rgba(200,150,62,0.2);
+  border-bottom: 1px solid rgba(200,150,62,0.2);
+  padding: 2.5rem 2rem;
+}
+
+.stats-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-item .stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-item .stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+/* ============ SECTIONS COMMON ============ */
+section { padding: 6rem 2rem; }
+
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+}
+
+.section-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  letter-spacing: 2px;
+  line-height: 1.05;
+  margin-bottom: 1.2rem;
+}
+
+.section-desc {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.15rem;
+  color: var(--text-body);
+  line-height: 1.7;
+}
+
+/* ============ ROUTE SECTION ============ */
+.route {
+  background: var(--cream);
+}
+
+.route-timeline {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.route-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold), var(--rust), var(--gold));
+  transform: translateX(-50%);
+}
+
+.route-stop {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.route-stop:nth-child(odd) {
+  flex-direction: row;
+  text-align: right;
+  padding-right: calc(50% + 2.5rem);
+}
+
+.route-stop:nth-child(even) {
+  flex-direction: row-reverse;
+  text-align: left;
+  padding-left: calc(50% + 2.5rem);
+}
+
+.route-stop::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0.5rem;
+  width: 14px;
+  height: 14px;
+  background: var(--gold);
+  border: 3px solid var(--cream);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.route-stop h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: var(--midnight);
+  margin-bottom: 0.3rem;
+}
+
+.route-stop p {
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+.route-stop .leg-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+/* ============ EXPERIENCE CARDS ============ */
+.experience {
+  background: var(--midnight);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.experience::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 90%, rgba(200,150,62,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 90% 10%, rgba(139,58,42,0.06) 0%, transparent 40%);
+}
+
+.experience .section-title { color: var(--white); }
+.experience .section-desc { color: rgba(255,255,255,0.6); }
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.exp-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,150,62,0.15);
+  padding: 2.5rem 2rem;
+  transition: all 0.4s;
+  position: relative;
+}
+
+.exp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+.exp-card:hover::before { transform: scaleX(1); }
+.exp-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-4px); }
+
+.exp-icon {
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
+.exp-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.7rem;
+  color: var(--gold-light);
+}
+
+.exp-card p {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+
+/* ============ TESTIMONIALS ============ */
+.testimonials {
+  background: var(--parchment);
+  position: relative;
+}
+
+.testimonials::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23c8963e' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.test-card {
+  background: var(--white);
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.test-card::before {
+  content: '\201C';
+  font-family: 'Crimson Text', serif;
+  font-size: 5rem;
+  color: var(--gold);
+  opacity: 0.2;
+  position: absolute;
+  top: 0.5rem;
+  left: 1.2rem;
+  line-height: 1;
+}
+
+.test-card blockquote {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text-body);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.test-author {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.test-role {
+  font-size: 0.75rem;
+  color: var(--dust);
+  margin-top: 0.2rem;
+}
+
+/* ============ HOW IT WORKS ============ */
+.how-it-works {
+  background: var(--cream);
+}
+
+.hiw-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hiw-step {
+  text-align: center;
+  position: relative;
+}
+
+.hiw-step::after {
+  content: '→';
+  position: absolute;
+  right: -1.2rem;
+  top: 1.8rem;
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+.hiw-step:last-child::after { display: none; }
+
+.hiw-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+
+.hiw-step h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  color: var(--midnight);
+}
+
+.hiw-step p {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.92rem;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+/* ============ CTA BANNER ============ */
+.cta-banner {
+  background: var(--midnight);
+  padding: 5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-banner::before {
+  content: '★';
+  position: absolute;
+  font-size: 20rem;
+  color: rgba(200,150,62,0.03);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cta-banner h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--white);
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.cta-banner .gold { color: var(--gold); }
+
+.cta-banner p {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.cta-banner .btn-primary { font-size: 1.4rem; padding: 1.1rem 3rem; }
+
+.cta-price {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  position: relative;
+}
+
+/* ============ SPONSORS ============ */
+.sponsors {
+  background: var(--parchment);
+  padding: 3.5rem 2rem;
+  text-align: center;
+}
+
+.sponsors .section-tag { margin-bottom: 1.5rem; }
+
+.sponsor-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.5;
+}
+
+.sponsor-row span {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  color: var(--midnight);
+}
+
+/* ============ FOOTER ============ */
+footer {
+  background: var(--midnight);
+  color: rgba(255,255,255,0.4);
+  padding: 3rem 2rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-brand .nav-logo { margin-bottom: 0.8rem; font-size: 1.3rem; }
+
+.footer-brand p {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.9rem;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+.footer-links h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+  display: block;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--gold-light); }
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.footer-social a {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+}
+
+.footer-social a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .hero-video-wrap { display: none; }
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .exp-grid { grid-template-columns: 1fr; }
+  .test-grid { grid-template-columns: 1fr; }
+  .hiw-steps { grid-template-columns: repeat(2, 1fr); }
+  .hiw-step::after { display: none; }
+
+  .route-timeline::before { left: 1rem; transform: none; }
+  .route-stop:nth-child(odd),
+  .route-stop:nth-child(even) {
+    flex-direction: row;
+    text-align: left;
+    padding-left: 3rem;
+    padding-right: 0;
+  }
+  .route-stop::before { left: 1rem; transform: translateX(-50%); }
+
+  .footer-inner { flex-direction: column; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; }
+}
+
+@media (max-width: 600px) {
+  section { padding: 4rem 1.2rem; }
+  .countdown { gap: 1rem; }
+  .hiw-steps { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <span class="star">★</span> Texas Independence Relay
+  </a>
+  <ul class="nav-links">
+    <li><a href="route.html">The Route</a></li>
+    <li><a href="race-info.html">Race Info</a></li>
+    <li><a href="history.html">Texas History</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <button class="mobile-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- ANIMATED FALLBACK BACKGROUND (visible until video loads, or if video is missing) -->
+  <div class="hero-bg"></div>
+  <div class="hero-bg-drift"></div>
+  <div class="hero-grain"></div>
+
+  <!-- YouTube background video: 2022 TIR Family -->
+  <div class="hero-video-wrap" id="heroVideoWrap">
+    <iframe id="heroYT"
+      src="https://www.youtube.com/embed/zIux_c5-LuE?autoplay=1&mute=1&loop=1&playlist=zIux_c5-LuE&controls=0&showinfo=0&rel=0&start=4&playsinline=1&cc_load_policy=0&modestbranding=1&enablejsapi=1"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      title="TIR Background Video">
+    </iframe>
+  </div>
+
+  <!-- Dark overlay for text readability over video -->
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <span class="hero-badge">March 28–29, 2026 &nbsp;·&nbsp; Gonzales → Houston</span>
+    <h1 class="hero-title">
+      200 MILES OF<br><span class="gold">TEXAS GLORY</span>
+    </h1>
+    <p class="hero-subtitle">Trace Sam Houston's march from "Come and Take It" to victory at San Jacinto.</p>
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-days">46</span>
+        <span class="countdown-label">Days</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-hours">14</span>
+        <span class="countdown-label">Hours</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-min">32</span>
+        <span class="countdown-label">Minutes</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-sec">08</span>
+        <span class="countdown-label">Seconds</span>
+      </div>
+    </div>
+    <div class="hero-cta-group">
+      <a href="register.html" class="btn-primary">Register Your Team</a>
+      <a href="route.html" class="btn-ghost">Explore the Route</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span></span>
+    <small>Scroll</small>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-num">~200</div>
+      <div class="stat-label">Miles</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">36</div>
+      <div class="stat-label">Relay Legs</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Max Team Size</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">18</div>
+      <div class="stat-label">Years Running</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROUTE -->
+<section class="route" id="route">
+  <div class="section-header reveal">
+    <span class="section-tag">The Route</span>
+    <h2 class="section-title">200 MILES ACROSS TEXAS</h2>
+    <p class="section-desc">Gonzales to Houston. Wildflower hills, small towns with big hearts, a long night through the countryside, and a sunrise finish in the city.</p>
+  </div>
+  <div class="route-timeline">
+    <div class="route-stop reveal">
+      <div>
+        <span class="leg-tag">The Starting Cannon</span>
+        <h3>Gonzales</h3>
+        <p>Every team gets a cannon boom and their own walk-up song. You run a loop together through downtown, past the "Come and Take It" monument, and then you're off.</p>
+      </div>
+    </div>
+    <div class="route-stop reveal">
+      <div>
+        <span class="leg-tag">Legs 3–10 · Rolling Hills</span>
+        <h3>Shiner → Flatonia → Schulenburg</h3>
+        <p>This is the stretch people photograph. Wildflowers everywhere, dirt roads, German-Czech towns with kolache shops. You'll pass Sam Houston's Tree — the actual oak where the general camped in 1836.</p>
+      </div>
+    </div>
+    <div class="route-stop reveal">
+      <div>
+        <span class="leg-tag">Legs 11–18 · The Heartland</span>
+        <h3>Weimar → Columbus → Eagle Lake</h3>
+        <p>The hills pick up around here. Legs 12 through 14 are the ones people warn you about. You'll cross the Colorado River right around sunset, which almost makes up for the elevation.</p>
+      </div>
+    </div>
+    <div class="route-stop reveal">
+      <div>
+        <span class="leg-tag">Legs 19–28 · The Night</span>
+        <h3>Wallis → Fulshear → Katy</h3>
+        <p>These towns are all asleep when you come through. It's dark, it's quiet, and everyone in the van is running on gas station coffee. Honestly, some of the weekend's best moments happen in this stretch.</p>
+      </div>
+    </div>
+    <div class="route-stop reveal">
+      <div>
+        <span class="leg-tag">Legs 29–36 · The Finish</span>
+        <h3>Memorial Park → Buffalo Bayou → Saint Arnold</h3>
+        <p>You hit Houston's park trails as the sun comes up. The last leg runs through Memorial Park and along Buffalo Bayou with the skyline right there. Your whole team joins the final runner for the last stretch into the brewery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-header reveal">
+    <span class="section-tag">The Experience</span>
+    <h2 class="section-title">MORE THAN A RACE</h2>
+    <p class="section-desc">Ask anyone who's done it. They'll talk about the race for maybe two minutes, then spend an hour on everything else.</p>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      
+      <h3>The TIPP Party</h3>
+      <p>Friday night in Gonzales. Pajamas required. Costumes encouraged. The whole town shows up. You'll dance with strangers who'll be cheering for you at mile 180.</p>
+    </div>
+    <div class="exp-card reveal">
+      
+      <h3>Small Town Heart</h3>
+      <p>Shiner. Flatonia. Schulenburg. Towns where folks put out lawn chairs at midnight to clap for runners they've never met.</p>
+    </div>
+    <div class="exp-card reveal">
+      
+      <h3>The Night Legs</h3>
+      <p>Somewhere between Eagle Lake and Wallis, it's just you, a headlamp, and more stars than you've seen in years. Your van's headlights are behind you. It's weirdly peaceful.</p>
+    </div>
+    <div class="exp-card reveal">
+      
+      <h3>Living History</h3>
+      <p>You'll run past the oak where Sam Houston actually camped in 1836. You'll exchange wristbands under his statue in Hermann Park. The route is the real thing.</p>
+    </div>
+    <div class="exp-card reveal">
+      
+      <h3>The Van Life</h3>
+      <p>Twelve people. Two vans. Thirty-something hours. You will see each other at your absolute worst and somehow come out the other side as better friends.</p>
+    </div>
+    <div class="exp-card reveal">
+      
+      <h3>The Finish</h3>
+      <p>Your whole team runs the last stretch together into Saint Arnold Brewery. There's pizza. There's cold beer. There's the Houston skyline. Not a bad way to spend a Sunday morning.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how">
+  <div class="section-header reveal">
+    <span class="section-tag">How It Works</span>
+    <h2 class="section-title">FROM SIGNUP TO FINISH LINE</h2>
+    <p class="section-desc">Never done a relay? No problem. Here's how it works.</p>
+  </div>
+  <div class="hiw-steps">
+    <div class="hiw-step reveal">
+      <div class="hiw-num">01</div>
+      <h3>BUILD YOUR TEAM</h3>
+      <p>Round up 4 to 12 people. Friends, coworkers, your running club, your family. Fast, slow, first-timers, all welcome.</p>
+    </div>
+    <div class="hiw-step reveal">
+      <div class="hiw-num">02</div>
+      <h3>REGISTER & PREP</h3>
+      <p>Sign up, pick a team name, choose your walk-up song (yes, seriously), and divvy up the 36 legs among your runners.</p>
+    </div>
+    <div class="hiw-step reveal">
+      <div class="hiw-num">03</div>
+      <h3>RUN THE RELAY</h3>
+      <p>One runner goes at a time. The rest of the team leapfrogs by van. Each person runs about 15–20 miles total, spread across 3 legs over the whole weekend.</p>
+    </div>
+    <div class="hiw-step reveal">
+      <div class="hiw-num">04</div>
+      <h3>FINISH TOGETHER</h3>
+      <p>Your whole team runs the last stretch into Saint Arnold. Grab your medal. Grab a beer. Start arguing about next year's team name.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="stories">
+  <div class="section-header reveal">
+    <span class="section-tag">Runner Stories</span>
+    <h2 class="section-title">HEAR IT FROM THE ROAD</h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card reveal">
+      <blockquote>"It was a fantastic year. Y'all deserve so much credit for this amazing weekend every year. It is a blessing to break away from our daily lives to feel the Heart of Texas rejuvenated inside all of us."</blockquote>
+      <div class="test-author">BJ Braatan</div>
+      <div class="test-role">Team Captain, Texan Trots · Multi-year participant</div>
+    </div>
+    <div class="test-card reveal">
+      <blockquote>"One of the most rewarding and difficult things I have ever experienced. I still remember every moment of the 3 times I did participate."</blockquote>
+      <div class="test-author">Linda Basil</div>
+      <div class="test-role">3-time TIR finisher</div>
+    </div>
+    <div class="test-card reveal">
+      <blockquote>"Our team wants to give its sincere thanks for making TIR such a great event. This is our absolute favorite race and we can't wait to do it again next year!"</blockquote>
+      <div class="test-author">Rick Bozanich</div>
+      <div class="test-role">President, Katy Area Running Club</div>
+    </div>
+    <div class="test-card reveal">
+      <blockquote>"Here's to hundreds more happy miles in the future! The official TIR social media team did a bang-up job posting incredible moments throughout the weekend."</blockquote>
+      <div class="test-author">Brentney Hamilton</div>
+      <div class="test-role">Feature Writer, Dallas Morning News</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="register">
+  <h2>COME AND <span class="gold">TAKE IT</span></h2>
+  <p>March 28–29, 2026 &nbsp;·&nbsp; Gonzales to Houston &nbsp;·&nbsp; 200 miles of glory</p>
+  <a href="register.html" class="btn-primary">Register Your Team Now</a>
+  <div class="cta-price">Teams of up to 12 &nbsp;·&nbsp; All experience levels welcome &nbsp;·&nbsp; USATF sanctioned</div>
+</section>
+
+<!-- SPONSORS -->
+<div class="sponsors">
+  <span class="section-tag">Proud Partners</span>
+  <div class="sponsor-row">
+    <span>Saint Arnold Brewing</span>
+    <span>SockGuy</span>
+    <span>USATF</span>
+    <span>City of Gonzales</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+      <p>A Lone Star Relays event. Founded 2008 by Jay & Joy Hilscher. Tracing the Runaway Scrape from Gonzales to Houston.</p>
+      <div class="footer-social">
+        <a href="#">IG</a>
+        <a href="#">FB</a>
+        <a href="#">YT</a>
+        <a href="#">X</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Race Info</h4>
+      <a href="index.html">Home</a>
+      <a href="route.html">The Route</a>
+      <a href="race-info.html">Rules & Resources</a>
+      <a href="history.html">Texas History</a>
+    </div>
+    <div class="footer-links">
+      <h4>Get Involved</h4>
+      <a href="#">Corporate Teams</a>
+      <a href="#">Volunteer</a>
+      <a href="#">Sponsor</a>
+    </div>
+    <div class="footer-links">
+      <h4>Contact</h4>
+      <a href="mailto:jay@texasindependencerelay.com">jay@texasindependencerelay.com</a>
+      <a href="tel:5127165041">512-716-5041</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Lone Star Relays LLC. All rights reserved.</span>
+    <span>A family tradition since 2008.</span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll behavior
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Countdown to March 28, 2026 6:00 AM CT
+function updateCountdown() {
+  const target = new Date('2026-03-28T06:00:00-05:00');
+  const now = new Date();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-min').textContent = '00';
+    document.getElementById('cd-sec').textContent = '00';
+    return;
+  }
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+  document.getElementById('cd-min').textContent = String(m).padStart(2, '0');
+  document.getElementById('cd-sec').textContent = String(s).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// YouTube background: fade out gradient fallback after iframe loads
+const heroYT = document.getElementById('heroYT');
+heroYT.addEventListener('load', function() {
+  setTimeout(function() {
+    const bg = document.querySelector('.hero-bg');
+    const drift = document.querySelector('.hero-bg-drift');
+    if (bg) { bg.style.transition = 'opacity 2s ease'; bg.style.opacity = '0'; }
+    if (drift) { drift.style.transition = 'opacity 2s ease'; drift.style.opacity = '0'; }
+  }, 1500); // small delay to let video actually start playing
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((en

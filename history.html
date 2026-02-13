@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texas History — Texas Independence Relay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --midnight: #0b1a2e; --navy: #132744; --gold: #c8963e; --gold-light: #dbb06b; --cream: #f5efe6; --parchment: #ede4d4; --rust: #8b3a2a; --dust: #a89478; --white: #ffffff; --text-dark: #1a1a1a; --text-body: #3d3d3d; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); background: var(--cream); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0.7rem 2.5rem; display: flex; align-items: center; justify-content: space-between; background: rgba(11,26,46,0.97); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-logo .star { font-size: 1.2rem; }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-cta { background: var(--gold) !important; color: var(--midnight) !important; padding: 0.55rem 1.5rem; border-radius: 2px; font-weight: 700 !important; letter-spacing: 2px !important; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+.mobile-toggle span { width: 26px; height: 2px; background: var(--gold); }
+
+/* PAGE HERO */
+.page-hero {
+  background: var(--midnight); padding: 8rem 2rem 5rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 20% 90%, rgba(139,58,42,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(200,150,62,0.1) 0%, transparent 50%);
+}
+.page-hero-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; position: relative; }
+.page-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--white); letter-spacing: 3px; line-height: 1.05; margin-bottom: 1rem; position: relative; }
+.page-hero h1 .gold { color: var(--gold); }
+.page-hero-desc { font-family: 'Crimson Text', serif; font-size: 1.2rem; color: rgba(255,255,255,0.6); font-style: italic; max-width: 650px; margin: 0 auto; position: relative; line-height: 1.7; }
+
+/* SECTIONS */
+section { padding: 5rem 2rem; }
+.section-header { text-align: center; max-width: 700px; margin: 0 auto 3.5rem; }
+.section-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.2rem); letter-spacing: 2px; line-height: 1.05; margin-bottom: 1.2rem; }
+.section-desc { font-family: 'Crimson Text', serif; font-size: 1.15rem; color: var(--text-body); line-height: 1.7; }
+
+/* NARRATIVE PROSE */
+.prose-section { background: var(--cream); }
+
+.prose-content {
+  max-width: 720px; margin: 0 auto;
+}
+
+.prose-content p {
+  font-family: 'Crimson Text', serif; font-size: 1.15rem;
+  color: var(--text-body); line-height: 1.85; margin-bottom: 1.5rem;
+}
+
+.prose-content .pull-quote {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--midnight); letter-spacing: 2px; line-height: 1.15;
+  border-left: 4px solid var(--gold); padding-left: 1.5rem;
+  margin: 2.5rem 0; max-width: 550px;
+}
+
+.prose-content .date-callout {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+  color: var(--rust); letter-spacing: 3px;
+  margin-bottom: 0.3rem; display: block;
+}
+
+/* REVOLUTION TIMELINE */
+.timeline-section {
+  background: var(--midnight); color: var(--white); position: relative; overflow: hidden;
+}
+
+.timeline-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 10% 90%, rgba(200,150,62,0.06) 0%, transparent 50%),
+              radial-gradient(circle at 90% 10%, rgba(139,58,42,0.05) 0%, transparent 40%);
+}
+
+.timeline-section .section-title { color: var(--white); }
+.timeline-section .section-desc { color: rgba(255,255,255,0.5); }
+
+.timeline {
+  max-width: 800px; margin: 0 auto; position: relative; z-index: 1;
+}
+
+.timeline::before {
+  content: ''; position: absolute; left: 100px; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(to bottom, var(--gold), var(--rust), var(--gold));
+}
+
+.tl-event {
+  display: flex; gap: 2rem; margin-bottom: 2.5rem; position: relative;
+}
+
+.tl-date {
+  flex-shrink: 0; width: 80px; text-align: right; padding-top: 0.3rem;
+}
+
+.tl-date .tl-month {
+  font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem;
+  color: var(--gold); letter-spacing: 2px; line-height: 1;
+}
+.tl-date .tl-year {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+  color: var(--white); line-height: 1;
+}
+
+.tl-dot {
+  flex-shrink: 0; width: 14px; height: 14px;
+  background: var(--gold); border: 3px solid var(--midnight);
+  border-radius: 50%; margin-top: 0.4rem; position: relative; z-index: 1;
+}
+
+.tl-content h4 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;
+  letter-spacing: 2px; color: var(--gold-light); margin-bottom: 0.3rem;
+}
+.tl-content p {
+  font-family: 'Crimson Text', serif; font-size: 1rem;
+  color: rgba(255,255,255,0.55); line-height: 1.7;
+}
+
+/* ROUTE CONNECTION — where history meets the road */
+.connection-section { background: var(--parchment); }
+
+.connection-grid {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+}
+
+.connection-card {
+  background: var(--white); padding: 2.5rem 2rem;
+  border: 1px solid rgba(200,150,62,0.1); transition: all 0.4s;
+  position: relative;
+}
+.connection-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.connection-card:hover::before { transform: scaleX(1); }
+.connection-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+
+.connection-card .cc-tag {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--rust); margin-bottom: 0.5rem; display: block;
+}
+
+.connection-card h3 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 2px; color: var(--midnight); margin-bottom: 0.7rem;
+}
+
+.connection-card p {
+  font-family: 'Crimson Text', serif; font-size: 0.95rem;
+  color: var(--text-body); line-height: 1.65;
+}
+
+/* COME AND TAKE IT */
+.flag-section {
+  background: var(--cream);
+}
+
+.flag-content {
+  max-width: 750px; margin: 0 auto;
+  display: flex; gap: 3rem; align-items: center;
+}
+
+.flag-icon {
+  flex-shrink: 0; width: 200px; height: 130px;
+  background: var(--parchment); border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  text-align: center; padding: 1rem;
+}
+
+.flag-icon .cannon { font-size: 2.5rem; display: block; margin-bottom: 0.3rem; }
+.flag-icon .flag-text {
+  font-size: 0.8rem; letter-spacing: 3px; color: var(--midnight);
+}
+
+.flag-prose p {
+  font-family: 'Crimson Text', serif; font-size: 1.05rem;
+  color: var(--text-body); line-height: 1.75;
+}
+.flag-prose p + p { margin-top: 0.8rem; }
+
+/* CTA */
+.cta-banner { background: var(--midnight); padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+.cta-banner::before { content: '★'; position: absolute; font-size: 20rem; color: rgba(200,150,62,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--white); letter-spacing: 3px; margin-bottom: 0.5rem; position: relative; }
+.cta-banner .gold { color: var(--gold); }
+.cta-banner p { font-family: 'Crimson Text', serif; font-size: 1.2rem; color: rgba(255,255,255,0.6); font-style: italic; margin-bottom: 2rem; position: relative; }
+.btn-primary { background: var(--gold); color: var(--midnight); padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 3px; text-decoration: none; display: inline-block; transition: all 0.3s; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(200,150,62,0.35); }
+
+/* FOOTER */
+footer { background: var(--midnight); color: rgba(255,255,255,0.4); padding: 3rem 2rem 2rem; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; }
+.footer-brand .nav-logo { margin-bottom: 0.8rem; font-size: 1.3rem; }
+.footer-brand p { font-size: 0.8rem; line-height: 1.6; max-width: 300px; margin-bottom: 1rem; }
+.footer-social { display: flex; gap: 0.8rem; }
+.footer-social a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; transition: color 0.3s; }
+.footer-social a:hover { color: var(--gold); }
+.footer-links h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 0.8rem; }
+.footer-links a { display: block; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.8rem; margin-bottom: 0.4rem; transition: color 0.3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; font-size: 0.7rem; }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) { .connection-grid { grid-template-columns: 1fr; } .flag-content { flex-direction: column; text-align: center; } .flag-icon { width: 160px; } .timeline::before { left: 80px; } }
+@media (max-width: 700px) { nav { padding: 0.7rem 1.2rem; } .nav-links { display: none; } .mobile-toggle { display: flex; } section { padding: 3.5rem 1.2rem; } .tl-event { gap: 1rem; } .tl-date { width: 60px; } .timeline::before { left: 68px; } .footer-inner { flex-direction: column; } .footer-bottom { flex-direction: column; gap: 0.3rem; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+  <ul class="nav-links">
+    <li><a href="route.html">The Route</a></li>
+    <li><a href="race-info.html">Race Info</a></li>
+    <li><a href="history.html" class="active">Texas History</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <span class="page-hero-tag">1835–1836</span>
+  <h1>THE <span class="gold">TEXAS</span> REVOLUTION</h1>
+  <p class="page-hero-desc">No other relay race in America traces its route along actual history. When you run the TIR, you're covering the same ground the Texian settlers fled across in 1836. This is the story of why.</p>
+</section>
+
+<!-- THE STORY -->
+<section class="prose-section">
+  <div class="section-header reveal">
+    <span class="section-tag">The Story</span>
+    <h2 class="section-title">THE RUNAWAY SCRAPE</h2>
+  </div>
+
+  <div class="prose-content">
+    <p class="reveal">Sam Houston could not have predicted the events leading up to March 2, 1836 — the day the Texas Declaration of Independence was signed and Houston was named Commander-in-Chief — nor could he have anticipated everything that would follow before the revolution's end.</p>
+
+    <p class="reveal">The revolution had started five months earlier, on October 2, 1835, in a town you'll come to know well: Gonzales. Mexican soldiers attempted to retrieve a cannon previously given to the American colonists by the Mexican government. The colonists, already showing the spirit of independence that would define Texas, pointed at the small cannon behind them and replied:</p>
+
+    <div class="pull-quote reveal">COME AND TAKE IT.</div>
+
+    <p class="reveal">A skirmish broke out, sparking the revolution and the long road to Texas independence. A week later, General Martin Perfecto de Cos tried to reestablish Mexican control over the Gulf Coast, but Texian dissenters seized a fort at Goliad. The Battle of Concepcion and the Grass Fight strained relations further. Then, from December 5th to 9th, the Siege of Bexar became the first major engagement — ending in surrender by General Cos and the Mexican cavalry. It also deepened General Santa Anna's conviction to drive the settlers out of Texas entirely.</p>
+
+    <p class="reveal">While Houston was signing the Declaration of Independence at Washington-on-the-Brazos, Colonel James Bowie, Lt. Colonel William Barrett Travis, and Davy Crockett led over 200 Texians in their last stand at the Alamo. They were outnumbered by a ratio greater than 10 to 1, yet they held the fort for 13 days until the siege ended on March 6, 1836. All the Texian fighters were killed. The surviving women and children were told to spread word to the settlers: get out of Texas.</p>
+
+    <p class="reveal"><span class="date-callout">MARCH 13, 1836</span>General Houston ordered everyone to leave their homes and belongings and burn them all, so the Mexican army couldn't benefit from anything left behind. The settlers fled eastward. Their flight became known as the Runaway Scrape.</p>
+
+    <p class="reveal">Two weeks later, Santa Anna ordered the execution of 345 men at Goliad. Similar outcomes occurred at Refugio and Coleto. In all, 400 were executed.</p>
+
+    <p class="reveal"><span class="date-callout">APRIL 21, 1836</span>General Houston and his modestly sized volunteer army surprised and defeated the Mexican army at the Battle of San Jacinto, amid cries of "Remember the Alamo!" and "Remember Goliad!" The battle lasted eighteen minutes. Texas was free.</p>
+
+    <p class="reveal">It's been said that in order to see ahead, you must first look back from where you came. If that's true, then Texas has a bright future — because it was not so long ago that many people exhibited extraordinary courage in claiming Texas' independence.</p>
+  </div>
+</section>
+
+<!-- REVOLUTION TIMELINE -->
+<section class="timeline-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Timeline</span>
+    <h2 class="section-title">THE TEXAS REVOLUTION</h2>
+    <p class="section-desc">Seven months from the first shot to independence.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-event reveal">
+      <div class="tl-date"><div class="tl-month">OCT</div><div class="tl-year">1835</div></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>THE BATTLE OF GONZALES</h4>
+        <p>Mexican soldiers demand the return of a cannon. The colonists refuse. A skirmish breaks out under a homemade flag reading "Come and Take It." The revolution begins.</p>
+      </div>
+    </div>
+
+    <div class="tl-event reveal">
+      <div class="tl-date"><div class="tl-month">OCT</div><div class="tl-year">1835</div></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>THE SIEGE OF GOLIAD</h4>
+        <p>Texian dissenters seize a Mexican-held fort at Goliad, followed by the Battle of Concepcion and the Grass Fight.</p>
+      </div>
+    </div>
+
+    <div class="tl-event reveal">
+      <div class="tl-date"><div class="tl-month">DEC</div><div class="tl-year">1835</div></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>THE SIEGE OF BEXAR</h4>
+        <p>Five days of fighting. General Cos surrenders. The first serious engagement of the revolution, and the one that convinces Santa Anna to personally crush the rebellion.</p>
+      </div>
+    </div>
+
+    <div class="tl-event reveal">
+      <div class="tl-date"><div class="tl-month">MAR 2</div><div class="tl-year">1836</div></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>TEXAS DECLARATION OF INDEPENDENCE</h4>
+        <p>Signed at Washington-on-the-Brazos. Sam Houston is named Commander-in-Chief. Meanwhile, the Alamo is under siege.</p>
+      </div>
+    </div>
+
+    <div class="tl-event reveal">
+      <div class="tl-date"><div class="tl-month">MAR 6</div><div class="tl-year">1836</div></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>THE FALL OF THE ALAMO</h4>
+        <p>After 13 days, the siege ends. All Texian defenders are killed. Travis, Bowie, Crockett — names that will echo through centuries. Women and children are sent to spread the word: leave Texas.</p>
+      </div>
+    </div>
+
+    <div class="tl-event reveal">
+      <div class="tl-date"><div class="tl-month">MAR 13</div><div class="tl-year">1836</div></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>THE RUNAWAY SCRAPE BEGINS</h4>
+        <p>Houston orders the settlers to burn their homes and flee east. Thousands take to the roads on foot, on horseback, and by wagon. This is the route you run.</p>
+      </div>
+    </div>
+
+    <div class="tl-event reveal">
+      <div class="tl-date"><div class="tl-month">MAR 27</div><div class="tl-year">1836</div></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>GOLIAD MASSACRE</h4>
+        <p>Santa Anna orders the execution of 345 Texian prisoners. Combined with losses at Refugio and Coleto, 400 are killed.</p>
+      </div>
+    </div>
+
+    <div class="tl-event reveal">
+      <div class="tl-date"><div class="tl-month">APR 21</div><div class="tl-year">1836</div></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>THE BATTLE OF SAN JACINTO</h4>
+        <p>Houston's army surprises the Mexican forces. The battle lasts eighteen minutes. "Remember the Alamo! Remember Goliad!" Texas wins its independence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHERE HISTORY MEETS THE ROUTE -->
+<section class="connection-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Where History Meets the Road</span>
+    <h2 class="section-title">YOU RUN THIS GROUND</h2>
+    <p class="section-desc">The TIR route follows the path of the Runaway Scrape. Here's what happened along the road you'll be running.</p>
+  </div>
+
+  <div class="connection-grid">
+    <div class="connection-card reveal">
+      <span class="cc-tag">The Start · Mile 0</span>
+      <h3>GONZALES</h3>
+      <p>Where the first shot of the Texas Revolution was fired. October 2, 1835. The colonists fashioned a flag from a wedding dress — a black star, a cannon, and the words "Come and Take It." Your team starts here, with a cannon boom of your own.</p>
+    </div>
+
+    <div class="connection-card reveal">
+      <span class="cc-tag">Leg 2 · Mile 10</span>
+      <h3>SAM HOUSTON'S OAK</h3>
+      <p>Leg 2 finishes at the actual oak tree where General Sam Houston briefly made camp in the same month of 1836. Exchange Point 2 sits a stone's throw from where the commander planned his retreat. Teams exchange wristbands in the shadow of the tree.</p>
+    </div>
+
+    <div class="connection-card reveal">
+      <span class="cc-tag">Legs 3–7 · Miles 10–31</span>
+      <h3>SHINER & THE COUNTRYSIDE</h3>
+      <p>The settlers fled along these same dirt roads. In 1836, this was raw frontier — no towns, no fences, just open prairie. The families moved on foot through here, carrying what they could, burning what they couldn't. Today you'll run past wildflowers and rolling hills on some of the most peaceful roads in the state.</p>
+    </div>
+
+    <div class="connection-card reveal">
+      <span class="cc-tag">Legs 10–11 · Miles 45–50</span>
+      <h3>FLATONIA & THE PAINTED CHURCHES</h3>
+      <p>The Czech and German immigrants who settled this area after the revolution built churches that are still standing — including St. Mary's in Praha, where Leg 11 finishes. These communities were built by people who came to Texas because of the independence the Texians won.</p>
+    </div>
+
+    <div class="connection-card reveal">
+      <span class="cc-tag">Legs 14–17 · Miles 62–86</span>
+      <h3>SCHULENBURG → WEIMAR → COLUMBUS</h3>
+      <p>The Runaway Scrape funneled through this corridor. Settlers crossed the Colorado River near Columbus — the same bridge your runners will cross on Leg 21, right around sunset. Columbus was a strategic point in 1836; Houston's army briefly held position here before continuing the retreat east.</p>
+    </div>
+
+    <div class="connection-card reveal">
+      <span class="cc-tag">Legs 19–23 · Miles 96–118</span>
+      <h3>THE COLORADO RIVER CROSSING</h3>
+      <p>The Colorado River was a significant barrier for the fleeing settlers. Many waited for days to cross with their families and livestock. When your team reaches the Colorado River Bridge on Leg 21, the sun will be setting. The settlers crossed here with fear behind them and uncertainty ahead.</p>
+    </div>
+
+    <div class="connection-card reveal">
+      <span class="cc-tag">Legs 24–28 · Miles 118–143</span>
+      <h3>THE NIGHT ROAD: EAGLE LAKE → WALLIS</h3>
+      <p>This stretch was the deep interior of the Scrape — families moving through the night, not knowing if the Mexican army was behind them. When you run these legs in the dark, through towns that are sound asleep, you'll have a small sense of what that isolation felt like. The silence out here is something else.</p>
+    </div>
+
+    <div class="connection-card reveal">
+      <span class="cc-tag">The Finish · Mile ~200</span>
+      <h3>BUFFALO BAYOU & SAN JACINTO</h3>
+      <p>The TIR finishes along Buffalo Bayou — the same waterway where Houston's army camped before the Battle of San Jacinto. On April 21, 1836, just a few miles from where you'll cross the finish line, a ragged volunteer army won Texas its independence in eighteen minutes. Your final stretch runs through Hermann Park, under Sam Houston's statue, and into Saint Arnold Brewery.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COME AND TAKE IT FLAG -->
+<section class="flag-section">
+  <div class="section-header reveal">
+    <span class="section-tag">The Symbol</span>
+    <h2 class="section-title">THE COME AND TAKE IT FLAG</h2>
+  </div>
+
+  <div class="flag-content reveal">
+    <div class="flag-icon">
+      <div>
+        <span class="cannon">★</span>
+        <div class="flag-text">COME AND TAKE IT</div>
+      </div>
+    </div>
+    <div class="flag-prose">
+      <p>Almost instantly after Colonel John Henry Moore uttered the challenge "Come and take it," the phrase became a rallying cry of the Texas Revolution. The flag — originally fashioned from a wedding dress, featuring a black star, a cannon, and the defiant motto — still represents the Texas spirit of independence today.</p>
+      <p>It's the reason every TIR team starts with a cannon boom. It's the reason the race begins in Gonzales. And it's the reason, after 200 miles and 36 legs, your team runs the final stretch together into a brewery in Houston — because that's what Texans do when they finish something worth finishing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>COME AND <span class="gold">TAKE IT</span></h2>
+  <p>Run the same ground. March 28–29, 2026.</p>
+  <a href="register.html" class="btn-primary">Register Your Team →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+      <p>A Lone Star Relays event. Founded 2008 by Jay & Joy Hilscher. Tracing the Runaway Scrape from Gonzales to Houston.</p>
+      <div class="footer-social"><a href="#">IG</a><a href="#">FB</a><a href="#">YT</a><a href="#">X</a></div>
+    </div>
+    <div class="footer-links"><h4>Race Info</h4><a href="index.html">Home</a><a href="route.html">The Route</a><a href="race-info.html">Rules & Resources</a><a href="history.html">Texas History</a></div>
+    <div class="footer-links"><h4>Get Involved</h4><a href="#">Corporate Teams</a><a href="#">Volunteer</a><a href="#">Sponsor</a></div>
+    <div class="footer-links"><h4>Contact</h4><a href="mailto:jay@texasindependencerelay.com">jay@texasindependencerelay.com</a><a href="tel:5127165041">512-716-5041</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Lone Star Relays LLC.</span><span>A family tradition since 2008.</span></div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

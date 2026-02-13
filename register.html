@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Texas Independence Relay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --midnight: #0b1a2e;
+  --navy: #132744;
+  --gold: #c8963e;
+  --gold-light: #dbb06b;
+  --cream: #f5efe6;
+  --parchment: #ede4d4;
+  --rust: #8b3a2a;
+  --dust: #a89478;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-body: #3d3d3d;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-dark);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============ NAV ============ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0.7rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(11, 26, 46, 0.97);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold);
+  letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-logo .star { font-size: 1.2rem; }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+
+.nav-links a {
+  color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.82rem;
+  font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a.active { color: var(--gold); }
+
+.nav-cta {
+  background: var(--gold) !important; color: var(--midnight) !important;
+  padding: 0.55rem 1.5rem; border-radius: 2px; font-weight: 700 !important;
+  letter-spacing: 2px !important; transition: all 0.3s !important;
+}
+.nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+.mobile-toggle span { width: 26px; height: 2px; background: var(--gold); transition: all 0.3s; }
+
+/* ============ PAGE HERO (compact) ============ */
+.page-hero {
+  background: var(--midnight);
+  padding: 8rem 2rem 4rem;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 80%, rgba(200,150,62,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 20%, rgba(139,58,42,0.08) 0%, transparent 50%);
+}
+
+.page-hero-tag {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem; display: block; position: relative;
+}
+
+.page-hero h1 {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--white); letter-spacing: 3px; line-height: 1.05; margin-bottom: 1rem; position: relative;
+}
+.page-hero h1 .gold { color: var(--gold); }
+
+.page-hero-desc {
+  font-family: 'Crimson Text', serif; font-size: 1.15rem;
+  color: rgba(255,255,255,0.6); font-style: italic; max-width: 600px; margin: 0 auto; position: relative;
+}
+
+/* ============ DEADLINE BANNER ============ */
+.deadline-banner {
+  background: var(--rust);
+  padding: 1rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.deadline-banner p {
+  color: var(--white); font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;
+}
+.deadline-banner .gold { color: var(--gold-light); }
+
+/* ============ SECTIONS COMMON ============ */
+section { padding: 5rem 2rem; }
+
+.section-header { text-align: center; max-width: 700px; margin: 0 auto 3.5rem; }
+
+.section-tag {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.2rem);
+  letter-spacing: 2px; line-height: 1.05; margin-bottom: 1.2rem;
+}
+
+.section-desc {
+  font-family: 'Crimson Text', serif; font-size: 1.15rem;
+  color: var(--text-body); line-height: 1.7;
+}
+
+/* ============ HOW PAYMENT WORKS ============ */
+.payment-explainer {
+  background: var(--cream);
+}
+
+.payment-options {
+  max-width: 900px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+}
+
+.payment-card {
+  background: var(--white);
+  padding: 2.5rem;
+  border: 1px solid rgba(200,150,62,0.15);
+  position: relative;
+}
+
+.payment-card h3 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 2px; color: var(--midnight); margin-bottom: 0.5rem;
+}
+
+.payment-card .price-highlight {
+  font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem;
+  color: var(--gold); line-height: 1; margin-bottom: 0.3rem;
+}
+
+.payment-card .price-sub {
+  font-size: 0.8rem; color: var(--dust); margin-bottom: 1.2rem;
+  font-weight: 600; letter-spacing: 1px;
+}
+
+.payment-card p {
+  font-family: 'Crimson Text', serif; font-size: 1rem;
+  color: var(--text-body); line-height: 1.65; margin-bottom: 1.5rem;
+}
+
+.payment-card .recommended {
+  position: absolute; top: 0; right: 0;
+  background: var(--gold); color: var(--midnight);
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 0.4rem 1rem;
+}
+
+/* ============ PRICING TABLE ============ */
+.pricing-section {
+  background: var(--midnight); color: var(--white); position: relative; overflow: hidden;
+}
+
+.pricing-section::before {
+  content: '★'; position: absolute; font-size: 25rem; color: rgba(200,150,62,0.02);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+
+.pricing-section .section-title { color: var(--white); }
+.pricing-section .section-desc { color: rgba(255,255,255,0.5); }
+
+.pricing-table-wrap {
+  max-width: 1000px; margin: 0 auto; position: relative; z-index: 1;
+  overflow-x: auto;
+}
+
+.pricing-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.pricing-table thead th {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem; letter-spacing: 2px; padding: 1rem 1.2rem;
+  text-align: center; color: var(--gold);
+  border-bottom: 2px solid rgba(200,150,62,0.3);
+}
+
+.pricing-table thead th:first-child { text-align: left; }
+
+.pricing-table thead th.active-period {
+  background: rgba(200,150,62,0.1);
+  position: relative;
+}
+.pricing-table thead th.active-period::after {
+  content: 'CURRENT'; position: absolute; top: 0.3rem; right: 0.5rem;
+  font-size: 0.55rem; letter-spacing: 1px; color: var(--gold-light);
+  font-family: 'DM Sans', sans-serif; font-weight: 700;
+}
+
+.pricing-table tbody td {
+  padding: 1rem 1.2rem; text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.7);
+}
+
+.pricing-table tbody td:first-child {
+  text-align: left; font-weight: 600; color: var(--white);
+  font-size: 0.85rem; letter-spacing: 0.5px;
+}
+
+.pricing-table tbody td.active-col {
+  background: rgba(200,150,62,0.06);
+  color: var(--white); font-weight: 600;
+}
+
+.pricing-table tbody tr:hover td { background: rgba(255,255,255,0.03); }
+
+.pricing-table .price-cell {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem; letter-spacing: 1px;
+}
+
+.pricing-table tfoot td {
+  padding: 1.2rem 1.2rem; text-align: center;
+  border-top: 2px solid rgba(200,150,62,0.3);
+}
+
+/* ============ REGISTRATION CARDS ============ */
+.reg-cards-section {
+  background: var(--parchment);
+}
+
+.reg-cards {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+
+.reg-card {
+  background: var(--white); padding: 2.5rem 2rem;
+  border: 1px solid rgba(200,150,62,0.1);
+  transition: all 0.4s; position: relative;
+  display: flex; flex-direction: column;
+}
+
+.reg-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.reg-card:hover::before { transform: scaleX(1); }
+.reg-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.08); }
+
+.reg-card-icon {
+  font-size: 1.8rem; margin-bottom: 1rem;
+}
+
+.reg-card h3 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 2px; color: var(--midnight); margin-bottom: 0.5rem;
+}
+
+.reg-card .reg-price {
+  font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;
+  color: var(--gold); margin-bottom: 0.3rem;
+}
+
+.reg-card .reg-price-note {
+  font-size: 0.75rem; color: var(--dust); margin-bottom: 1.2rem; font-weight: 600;
+}
+
+.reg-card p {
+  font-family: 'Crimson Text', serif; font-size: 0.95rem;
+  color: var(--text-body); line-height: 1.6; margin-bottom: 1.5rem; flex: 1;
+}
+
+.reg-card .btn-register {
+  display: block; text-align: center;
+  background: var(--midnight); color: var(--gold);
+  padding: 0.85rem 1.5rem;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem;
+  letter-spacing: 2px; text-decoration: none;
+  transition: all 0.3s; border: 1px solid var(--midnight);
+}
+.reg-card .btn-register:hover {
+  background: var(--gold); color: var(--midnight);
+}
+
+.reg-card.featured {
+  border-color: var(--gold); border-width: 2px;
+}
+.reg-card.featured::before { transform: scaleX(1); }
+.reg-card.featured .btn-register {
+  background: var(--gold); color: var(--midnight);
+}
+.reg-card.featured .btn-register:hover {
+  background: var(--gold-light);
+}
+
+/* ============ FAQ ============ */
+.faq-section { background: var(--cream); }
+
+.faq-list {
+  max-width: 800px; margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(200,150,62,0.2);
+}
+
+.faq-q {
+  width: 100%; padding: 1.5rem 0; text-align: left;
+  background: none; border: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600;
+  color: var(--midnight); transition: color 0.3s;
+}
+.faq-q:hover { color: var(--gold); }
+
+.faq-q .faq-icon {
+  font-size: 1.3rem; color: var(--gold); transition: transform 0.3s;
+  flex-shrink: 0; margin-left: 1rem;
+}
+
+.faq-q.open .faq-icon { transform: rotate(45deg); }
+
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.faq-a.open { max-height: 400px; padding-bottom: 1.5rem; }
+
+.faq-a p {
+  font-family: 'Crimson Text', serif; font-size: 1rem;
+  color: var(--text-body); line-height: 1.7;
+}
+
+.faq-a a { color: var(--rust); text-decoration: underline; }
+
+/* ============ IMPORTANT DATES ============ */
+.dates-section { background: var(--parchment); }
+
+.dates-timeline {
+  max-width: 700px; margin: 0 auto;
+}
+
+.date-item {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(200,150,62,0.15);
+}
+
+.date-marker {
+  flex-shrink: 0; width: 80px; text-align: right;
+}
+
+.date-marker .month {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  color: var(--gold); letter-spacing: 2px; line-height: 1;
+}
+.date-marker .day {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+  color: var(--midnight); line-height: 1;
+}
+
+.date-info h4 {
+  font-size: 0.9rem; font-weight: 700; color: var(--midnight);
+  margin-bottom: 0.2rem;
+}
+
+.date-info p {
+  font-family: 'Crimson Text', serif; font-size: 0.9rem; color: var(--dust);
+}
+
+.date-item.past { opacity: 0.45; }
+
+/* ============ CTA ============ */
+.cta-banner {
+  background: var(--midnight); padding: 5rem 2rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-banner::before {
+  content: '★'; position: absolute; font-size: 20rem;
+  color: rgba(200,150,62,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.cta-banner h2 {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--white); letter-spacing: 3px; margin-bottom: 0.5rem; position: relative;
+}
+.cta-banner .gold { color: var(--gold); }
+.cta-banner p {
+  font-family: 'Crimson Text', serif; font-size: 1.2rem;
+  color: rgba(255,255,255,0.6); font-style: italic; margin-bottom: 2rem; position: relative;
+}
+.btn-primary {
+  background: var(--gold); color: var(--midnight);
+  padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem; letter-spacing: 3px; text-decoration: none;
+  display: inline-block; transition: all 0.3s; position: relative; overflow: hidden;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(200,150,62,0.35); }
+
+/* ============ FOOTER ============ */
+footer {
+  background: var(--midnight); color: rgba(255,255,255,0.4); padding: 3rem 2rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1100px; margin: 0 auto; display: flex;
+  justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem;
+}
+
+.footer-brand .nav-logo { margin-bottom: 0.8rem; font-size: 1.3rem; }
+.footer-brand p { font-size: 0.8rem; line-height: 1.6; max-width: 300px; margin-bottom: 1rem; }
+
+.footer-social { display: flex; gap: 0.8rem; }
+.footer-social a {
+  color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.75rem;
+  font-weight: 700; letter-spacing: 1px; transition: color 0.3s;
+}
+.footer-social a:hover { color: var(--gold); }
+
+.footer-links h4 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+  letter-spacing: 2px; color: var(--gold); margin-bottom: 0.8rem;
+}
+.footer-links a {
+  display: block; color: rgba(255,255,255,0.4); text-decoration: none;
+  font-size: 0.8rem; margin-bottom: 0.4rem; transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+.footer-bottom {
+  max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; justify-content: space-between; font-size: 0.7rem;
+}
+
+/* ============ REVEAL ANIMATION ============ */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .payment-options { grid-template-columns: 1fr; }
+  .reg-cards { grid-template-columns: 1fr; max-width: 450px; }
+  .pricing-table { font-size: 0.8rem; }
+  .pricing-table thead th, .pricing-table tbody td { padding: 0.7rem 0.6rem; }
+}
+
+@media (max-width: 700px) {
+  nav { padding: 0.7rem 1.2rem; }
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+  section { padding: 3.5rem 1.2rem; }
+  .footer-inner { flex-direction: column; }
+  .footer-bottom { flex-direction: column; gap: 0.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+  <ul class="nav-links">
+    <li><a href="route.html">The Route</a></li>
+    <li><a href="race-info.html">Race Info</a></li>
+    <li><a href="history.html">Texas History</a></li>
+    <li><a href="register.html" class="nav-cta active">Register</a></li>
+  </ul>
+  <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <span class="page-hero-tag">March 28–29, 2026</span>
+  <h1>REGISTER YOUR <span class="gold">TEAM</span></h1>
+  <p class="page-hero-desc">Two hundred miles. Two vans. One unforgettable weekend. Pick how you want to pay and we'll handle the rest.</p>
+</section>
+
+<!-- DEADLINE BANNER -->
+<div class="deadline-banner">
+  <p>Late registration closes <span class="gold">February 28, 2026</span> — final team names and songs due March 4</p>
+</div>
+
+<!-- HOW PAYMENT WORKS -->
+<section class="payment-explainer">
+  <div class="section-header reveal">
+    <span class="section-tag">Two Ways To Pay</span>
+    <h2 class="section-title">TEAM LUMP SUM OR PAY INDIVIDUALLY</h2>
+    <p class="section-desc">Some captains cover the whole team up front, others let everyone chip in. Both options get you the same race.</p>
+  </div>
+
+  <div class="payment-options">
+    <div class="payment-card reveal">
+      <div class="recommended">MOST POPULAR</div>
+      <h3>PAY AS A TEAM</h3>
+      <div class="price-highlight">$2,050</div>
+      <div class="price-sub">FLAT RATE · UP TO 12 RUNNERS</div>
+      <p>One captain registers and pays for the whole team. Then your teammates sign up for free under your team name. Simplest option if you've got a group ready to go.</p>
+    </div>
+    <div class="payment-card reveal">
+      <h3>PAY INDIVIDUALLY</h3>
+      <div class="price-highlight">$185–$205</div>
+      <div class="price-sub">PER PERSON · VARIES BY ROLE</div>
+      <p>Captain registers first ($185), then each team member signs up and pays their own way ($205 each). Good if you're still rounding up the last few people.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FULL PRICING TABLE -->
+<section class="pricing-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Pricing</span>
+    <h2 class="section-title">REGISTRATION TIERS</h2>
+    <p class="section-desc">Prices go up as race day gets closer. The early bird period is over, but you've still got time.</p>
+  </div>
+
+  <div class="pricing-table-wrap reveal">
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>Registration Type</th>
+          <th>Early Bird<br><small style="font-family:'DM Sans';font-size:0.6rem;opacity:0.5;letter-spacing:0">Apr 4 – Apr 30</small></th>
+          <th>Regular<br><small style="font-family:'DM Sans';font-size:0.6rem;opacity:0.5;letter-spacing:0">May 1 – Dec 7</small></th>
+          <th class="active-period">Standard<br><small style="font-family:'DM Sans';font-size:0.6rem;opacity:0.5;letter-spacing:0">Dec 8 – Feb 8</small></th>
+          <th>Late<br><small style="font-family:'DM Sans';font-size:0.6rem;opacity:0.5;letter-spacing:0">Feb 9 – Feb 28</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Team (lump sum)</td>
+          <td class="price-cell">$1,500</td>
+          <td class="price-cell">$1,800</td>
+          <td class="price-cell active-col">$2,000</td>
+          <td class="price-cell">$2,050</td>
+        </tr>
+        <tr>
+          <td>Team Captain (individual)</td>
+          <td class="price-cell">$130</td>
+          <td class="price-cell">$160</td>
+          <td class="price-cell active-col">$180</td>
+          <td class="price-cell">$185</td>
+        </tr>
+        <tr>
+          <td>Team Member (individual)</td>
+          <td class="price-cell">$150</td>
+          <td class="price-cell">$180</td>
+          <td class="price-cell active-col">$200</td>
+          <td class="price-cell">$205</td>
+        </tr>
+        <tr>
+          <td>Corporate Team (lump sum)</td>
+          <td class="price-cell">$2,000</td>
+          <td class="price-cell">$2,000</td>
+          <td class="price-cell active-col">$2,000</td>
+          <td class="price-cell">$2,050</td>
+        </tr>
+        <tr>
+          <td>Free Agent (no team yet)</td>
+          <td class="price-cell">$150</td>
+          <td class="price-cell">$180</td>
+          <td class="price-cell active-col">$200</td>
+          <td class="price-cell">$205</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- REGISTER NOW CARDS -->
+<section class="reg-cards-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Ready?</span>
+    <h2 class="section-title">CHOOSE YOUR REGISTRATION</h2>
+    <p class="section-desc">Registration is handled through The Driven. Pick the option that fits your situation and you'll be taken straight to checkout.</p>
+  </div>
+
+  <div class="reg-cards">
+    <div class="reg-card featured reveal">
+      <h3>FULL TEAM</h3>
+      <div class="reg-price">$2,050</div>
+      <div class="reg-price-note">ONE PAYMENT · UP TO 12 RUNNERS</div>
+      <p>Captain pays for the whole team. After checkout, your teammates register for free under your team name. Best value per person.</p>
+      <a href="https://thedriven.net/event-registration/site.event_reg/eid/42080013569" class="btn-register">Register Full Team →</a>
+    </div>
+
+    <div class="reg-card reveal">
+      <h3>TEAM CAPTAIN</h3>
+      <div class="reg-price">$185</div>
+      <div class="reg-price-note">CAPTAIN ONLY · MEMBERS PAY SEPARATELY</div>
+      <p>Start your team and let everyone pay their own way. Register as captain first, then share your team name so members can join.</p>
+      <a href="https://thedriven.net/event-registration/site.event_reg/eid/42080013569" class="btn-register">Register as Captain →</a>
+    </div>
+
+    <div class="reg-card reveal">
+      <h3>JOIN A TEAM</h3>
+      <div class="reg-price">$205</div>
+      <div class="reg-price-note">PER PERSON · NEED YOUR TEAM NAME</div>
+      <p>Your captain already registered? Join their team. You'll need the team name they chose at checkout. If your captain paid in full, this is free.</p>
+      <a href="https://thedriven.net/event-registration/site.event_reg/eid/42080013569" class="btn-register">Join Existing Team →</a>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:2rem;">
+    <p style="font-size:0.85rem;color:var(--dust);">
+      Don't have a team? Register as a <a href="https://thedriven.net/event-registration/site.event_reg/eid/42080013569" style="color:var(--rust);font-weight:600;">Free Agent</a> and we'll help match you up.
+      &nbsp;·&nbsp;
+      <a href="https://thedriven.net/event-registration/site.event_reg/eid/42080013569" style="color:var(--rust);font-weight:600;">Corporate teams</a> start at $2,000.
+    </p>
+  </div>
+</section>
+
+<!-- IMPORTANT DATES -->
+<section class="dates-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Mark Your Calendar</span>
+    <h2 class="section-title">IMPORTANT DATES</h2>
+  </div>
+  <div class="dates-timeline">
+    <div class="date-item past reveal">
+      <div class="date-marker"><div class="month">DEC</div><div class="day">7</div></div>
+      <div class="date-info"><h4>Early Registration Closes</h4><p>Best pricing window</p></div>
+    </div>
+    <div class="date-item reveal">
+      <div class="date-marker"><div class="month">FEB</div><div class="day">28</div></div>
+      <div class="date-info"><h4>Final Day of Registration</h4><p>No exceptions after this date</p></div>
+    </div>
+    <div class="date-item reveal">
+      <div class="date-marker"><div class="month">MAR</div><div class="day">2</div></div>
+      <div class="date-info"><h4>Texas Independence Day</h4><p>Celebrate the day that started it all</p></div>
+    </div>
+    <div class="date-item reveal">
+      <div class="date-marker"><div class="month">MAR</div><div class="day">4</div></div>
+      <div class="date-info"><h4>Team Names & Songs Due</h4><p>Yes, you need a walk-up song</p></div>
+    </div>
+    <div class="date-item reveal">
+      <div class="date-marker"><div class="month">MAR</div><div class="day">19</div></div>
+      <div class="date-info"><h4>The Big Email</h4><p>Start times, finalized logistics, everything you need</p></div>
+    </div>
+    <div class="date-item reveal">
+      <div class="date-marker"><div class="month">MAR</div><div class="day">27</div></div>
+      <div class="date-info"><h4>The TIPP!</h4><p>Texas Independence Pajama Party in Gonzales. Friday night.</p></div>
+    </div>
+    <div class="date-item reveal">
+      <div class="date-marker"><div class="month">MAR</div><div class="day">28</div></div>
+      <div class="date-info"><h4>TIR Starts</h4><p>Cannon booms begin at 6:00 AM</p></div>
+    </div>
+    <div class="date-item reveal">
+      <div class="date-marker"><div class="month">MAR</div><div class="day">29</div></div>
+      <div class="date-info"><h4>TIR Finishes</h4><p>Saint Arnold Brewery. Pizza. Cold beer. You made it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Questions?</span>
+    <h2 class="section-title">FREQUENTLY ASKED</h2>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <button class="faq-q">What's included in registration?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Your team entry, bibs, a team wristband for relay exchanges, access to all exchange points and rest stops, the finish line celebration at Saint Arnold Brewery (pizza and beer included), finisher medals, and the Friday night TIPP party. You'll also get access to the TIR app with live tracking.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q">How many people do we need?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Teams can have 4 to 12 runners. Most teams do 10-12 split across two vans, with each person running about 15-20 miles total over three legs. Smaller teams are absolutely fine — you'll just each run more legs. Some teams have done it with as few as 6.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q">What if I don't have a team?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Register as a Free Agent. We'll connect you with teams looking for extra runners. It's a great way to meet people and get your first relay experience.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q">Can I add or swap team members after registration?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. Team captains can manage their roster through The Driven platform. You can add members anytime before registration closes on February 28. Substitutions can be made up until race week.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q">What's the refund policy?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Contact Jay directly at <a href="mailto:jay@texasindependencerelay.com">jay@texasindependencerelay.com</a> or 512-716-5041 to discuss your situation. The Hilschers are good people — they'll work with you.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q">What's the difference between paying as a team vs. individually?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>If one person pays the team lump sum ($2,050 at current pricing), all 12 team members register for free afterward. If you pay individually, the captain pays $185 and each additional member pays $205. For a full team of 12, individual pricing comes out to about $2,440 total, so the lump sum saves you a few hundred bucks.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q">Do we need to provide our own vans?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. Most teams rent two large passenger vans (12 or 15 passenger). You'll need vehicles to leapfrog along the course, following your runners and meeting them at each exchange point. Check the <a href="race-info.html">Race Info page</a> for full van requirements and safety rules.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q">Is there a minimum fitness level?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>If you can run 3 to 7 miles, you can do this. Leg distances range from about 3.7 to 6.8 miles, and each person runs 3 legs spread over the whole weekend with hours of rest in between. Plenty of walkers and walk-runners do TIR every year.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>COME AND <span class="gold">TAKE IT</span></h2>
+  <p>Questions? Call Jay at 512-716-5041 or email jay@texasindependencerelay.com</p>
+  <a href="https://thedriven.net/event-registration/site.event_reg/eid/42080013569" class="btn-primary">Register on The Driven →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+      <p>A Lone Star Relays event. Founded 2008 by Jay & Joy Hilscher. Tracing the Runaway Scrape from Gonzales to Houston.</p>
+      <div class="footer-social"><a href="#">IG</a><a href="#">FB</a><a href="#">YT</a><a href="#">X</a></div>
+    </div>
+    <div class="footer-links">
+      <h4>Race Info</h4>
+      <a href="index.html">Home</a>
+      <a href="route.html">The Route</a>
+      <a href="race-info.html">Rules & Resources</a>
+      <a href="history.html">Texas History</a>
+    </div>
+    <div class="footer-links">
+      <h4>Get Involved</h4>
+      <a href="#">Corporate Teams</a>
+      <a href="#">Volunteer</a>
+      <a href="#">Sponsor</a>
+    </div>
+    <div class="footer-links">
+      <h4>Contact</h4>
+      <a href="mailto:jay@texasindependencerelay.com">jay@texasindependencerelay.com</a>
+      <a href="tel:5127165041">512-716-5041</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Lone Star Relays LLC. All rights reserved.</span>
+    <span>A family tradition since 2008.</span>
+  </div>
+</footer>
+
+<script>
+// FAQ toggles
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+    // Open clicked (if it was closed)
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('open');
+    }
+  });
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

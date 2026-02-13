@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Route — Texas Independence Relay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --midnight: #0b1a2e;
+  --navy: #132744;
+  --gold: #c8963e;
+  --gold-light: #dbb06b;
+  --cream: #f5efe6;
+  --parchment: #ede4d4;
+  --rust: #8b3a2a;
+  --dust: #a89478;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-body: #3d3d3d;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); background: var(--cream); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0.7rem 2.5rem; display: flex; align-items: center; justify-content: space-between; background: rgba(11,26,46,0.97); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-logo .star { font-size: 1.2rem; }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-cta { background: var(--gold) !important; color: var(--midnight) !important; padding: 0.55rem 1.5rem; border-radius: 2px; font-weight: 700 !important; letter-spacing: 2px !important; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+.mobile-toggle span { width: 26px; height: 2px; background: var(--gold); }
+
+/* PAGE HERO */
+.page-hero { background: var(--midnight); padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
+.page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 80%, rgba(200,150,62,0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 20%, rgba(139,58,42,0.08) 0%, transparent 50%); }
+.page-hero-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; position: relative; }
+.page-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--white); letter-spacing: 3px; line-height: 1.05; margin-bottom: 1rem; position: relative; }
+.page-hero h1 .gold { color: var(--gold); }
+.page-hero-desc { font-family: 'Crimson Text', serif; font-size: 1.15rem; color: rgba(255,255,255,0.6); font-style: italic; max-width: 650px; margin: 0 auto; position: relative; }
+
+/* SECTIONS */
+section { padding: 5rem 2rem; }
+.section-header { text-align: center; max-width: 700px; margin: 0 auto 3.5rem; }
+.section-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.2rem); letter-spacing: 2px; line-height: 1.05; margin-bottom: 1.2rem; }
+.section-desc { font-family: 'Crimson Text', serif; font-size: 1.15rem; color: var(--text-body); line-height: 1.7; }
+
+/* MAP SECTION */
+.map-section { background: var(--midnight); padding: 0; position: relative; }
+
+.map-header {
+  padding: 4rem 2rem 2rem; text-align: center;
+}
+.map-header .section-tag { color: var(--gold); }
+.map-header .section-title { color: var(--white); }
+.map-header .section-desc { color: rgba(255,255,255,0.5); }
+
+.map-embed {
+  width: 100%; height: 500px; border: none; display: block;
+  border-top: 1px solid rgba(200,150,62,0.2);
+  border-bottom: 1px solid rgba(200,150,62,0.2);
+}
+
+.map-links {
+  padding: 1.5rem 2rem; text-align: center;
+  display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+}
+.map-links a {
+  color: var(--gold); text-decoration: none; font-size: 0.8rem;
+  font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s;
+}
+.map-links a:hover { color: var(--gold-light); }
+
+/* ROUTE STATS */
+.route-stats {
+  background: var(--cream); border-bottom: 1px solid rgba(200,150,62,0.15);
+  padding: 2.5rem 2rem;
+}
+
+.stats-grid {
+  max-width: 900px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; text-align: center;
+}
+
+.stat-item .stat-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--rust); line-height: 1;
+}
+.stat-item .stat-label {
+  font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--dust); margin-top: 0.3rem; font-weight: 600;
+}
+
+/* LEG BREAKDOWN */
+.legs-section { background: var(--cream); }
+
+/* Segment header */
+.segment {
+  max-width: 1000px; margin: 0 auto 3rem;
+}
+
+.segment-header {
+  display: flex; align-items: center; gap: 1.5rem;
+  margin-bottom: 1.5rem; padding-bottom: 1rem;
+  border-bottom: 2px solid var(--gold);
+}
+
+.segment-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: 3rem;
+  color: var(--gold); line-height: 1; flex-shrink: 0;
+}
+
+.segment-info h3 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+  letter-spacing: 2px; color: var(--midnight); line-height: 1.1;
+}
+
+.segment-info .segment-meta {
+  font-size: 0.75rem; color: var(--dust); font-weight: 600; letter-spacing: 1px;
+  margin-top: 0.2rem;
+}
+
+.segment-desc {
+  font-family: 'Crimson Text', serif; font-size: 1.05rem;
+  color: var(--text-body); line-height: 1.7; margin-bottom: 1.5rem; max-width: 700px;
+}
+
+/* Leg table */
+.leg-table {
+  width: 100%; border-collapse: collapse; font-size: 0.85rem;
+}
+
+.leg-table thead th {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--dust);
+  padding: 0.6rem 0.8rem; text-align: left;
+  border-bottom: 1px solid rgba(200,150,62,0.2);
+}
+
+.leg-table tbody td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  color: var(--text-body);
+}
+
+.leg-table tbody tr:hover { background: rgba(200,150,62,0.04); }
+
+.leg-table .leg-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  color: var(--midnight); width: 50px;
+}
+
+.leg-table .leg-dist {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--gold);
+  width: 70px;
+}
+
+.leg-table .leg-cat {
+  width: 60px;
+}
+
+.cat-badge {
+  display: inline-block; padding: 0.15rem 0.5rem; font-size: 0.65rem;
+  font-weight: 700; letter-spacing: 1px; border-radius: 2px;
+}
+.cat-1 { background: #dcedc8; color: #33691e; }
+.cat-2 { background: #fff9c4; color: #f57f17; }
+.cat-3 { background: #ffe0b2; color: #e65100; }
+.cat-4 { background: #ffcdd2; color: #b71c1c; }
+
+.leg-table .leg-summary {
+  font-family: 'Crimson Text', serif; font-size: 0.9rem; color: var(--text-body);
+}
+
+/* EXCHANGE POINTS */
+.exchange-section {
+  background: var(--midnight); color: var(--white);
+}
+.exchange-section .section-title { color: var(--white); }
+.exchange-section .section-desc { color: rgba(255,255,255,0.5); }
+
+.exchange-grid {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+
+.exchange-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(200,150,62,0.15);
+  padding: 2rem 1.5rem; position: relative;
+}
+
+.exchange-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.exchange-card:hover::before { transform: scaleX(1); }
+
+.exchange-card h4 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+  letter-spacing: 2px; color: var(--gold-light); margin-bottom: 0.5rem;
+}
+
+.exchange-card p {
+  font-family: 'Crimson Text', serif; font-size: 0.9rem;
+  color: rgba(255,255,255,0.5); line-height: 1.6;
+}
+
+.exchange-card .exchange-tag {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--dust); margin-bottom: 0.5rem; display: block;
+}
+
+/* RESOURCES LINKS */
+.resources-links {
+  background: var(--parchment);
+}
+
+.resource-grid {
+  max-width: 900px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+
+.resource-link {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 1.2rem 1.5rem; background: var(--white);
+  border: 1px solid rgba(200,150,62,0.1);
+  text-decoration: none; transition: all 0.3s;
+}
+.resource-link:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+.resource-link .r-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+.resource-link .r-text h4 {
+  font-size: 0.8rem; font-weight: 700; color: var(--midnight); margin-bottom: 0.1rem;
+}
+.resource-link .r-text p {
+  font-size: 0.7rem; color: var(--dust);
+}
+
+/* CTA */
+.cta-banner { background: var(--midnight); padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+.cta-banner::before { content: '★'; position: absolute; font-size: 20rem; color: rgba(200,150,62,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--white); letter-spacing: 3px; margin-bottom: 0.5rem; position: relative; }
+.cta-banner .gold { color: var(--gold); }
+.cta-banner p { font-family: 'Crimson Text', serif; font-size: 1.2rem; color: rgba(255,255,255,0.6); font-style: italic; margin-bottom: 2rem; position: relative; }
+.btn-primary { background: var(--gold); color: var(--midnight); padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 3px; text-decoration: none; display: inline-block; transition: all 0.3s; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(200,150,62,0.35); }
+
+/* FOOTER */
+footer { background: var(--midnight); color: rgba(255,255,255,0.4); padding: 3rem 2rem 2rem; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; }
+.footer-brand .nav-logo { margin-bottom: 0.8rem; font-size: 1.3rem; }
+.footer-brand p { font-size: 0.8rem; line-height: 1.6; max-width: 300px; margin-bottom: 1rem; }
+.footer-social { display: flex; gap: 0.8rem; }
+.footer-social a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; transition: color 0.3s; }
+.footer-social a:hover { color: var(--gold); }
+.footer-links h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 0.8rem; }
+.footer-links a { display: block; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.8rem; margin-bottom: 0.4rem; transition: color 0.3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; font-size: 0.7rem; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: repeat(3, 1fr); }
+  .exchange-grid, .resource-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+  .map-embed { height: 350px; }
+}
+@media (max-width: 700px) {
+  nav { padding: 0.7rem 1.2rem; }
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+  section { padding: 3.5rem 1.2rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .leg-table .leg-summary { display: none; }
+  .segment-header { flex-direction: column; gap: 0.5rem; }
+  .footer-inner { flex-direction: column; }
+  .footer-bottom { flex-direction: column; gap: 0.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+  <ul class="nav-links">
+    <li><a href="route.html" class="active">The Route</a></li>
+    <li><a href="race-info.html">Race Info</a></li>
+    <li><a href="history.html">Texas History</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <span class="page-hero-tag">Gonzales → Houston</span>
+  <h1>THE <span class="gold">ROUTE</span></h1>
+  <p class="page-hero-desc">36 legs across 200 miles of Texas. Wildflower hills, small towns, a long night through the countryside, and a sunrise finish in the city.</p>
+</section>
+
+<!-- ROUTE STATS -->
+<div class="route-stats">
+  <div class="stats-grid">
+    <div class="stat-item"><div class="stat-num">~200</div><div class="stat-label">Total Miles</div></div>
+    <div class="stat-item"><div class="stat-num">36</div><div class="stat-label">Relay Legs</div></div>
+    <div class="stat-item"><div class="stat-num">3.71</div><div class="stat-label">Shortest Leg (mi)</div></div>
+    <div class="stat-item"><div class="stat-num">6.78</div><div class="stat-label">Longest Leg (mi)</div></div>
+    <div class="stat-item"><div class="stat-num">13</div><div class="stat-label">Towns</div></div>
+  </div>
+</div>
+
+<!-- MAP -->
+<div class="map-section">
+  <div class="map-header">
+    <span class="section-tag">Interactive Map</span>
+    <h2 class="section-title" style="color:var(--white);">EXPLORE THE COURSE</h2>
+    <p class="section-desc" style="color:rgba(255,255,255,0.5);">Every exchange point, every leg, every turn. Zoom in to see the details.</p>
+  </div>
+  <iframe class="map-embed" src="https://www.google.com/maps/d/embed?mid=13Ohh-4QsBGV8iI5I4RFQakQtNnA&ehbc=2E312F&ll=29.70383059431991%2C-96.6393351796009&z=9" allowfullscreen loading="lazy"></iframe>
+  <div class="map-links">
+    <a href="https://www.google.com/maps/d/edit?hl=en&mid=13Ohh-4QsBGV8iI5I4RFQakQtNnA&ll=29.70383059431991%2C-96.6393351796009&z=9" target="_blank">Open Full Map ↗</a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025_TIR_Maps.pdf" target="_blank">Download PDF Maps ↗</a>
+    <a href="https://docs.google.com/spreadsheets/d/12OmDEIjsg4AQAR5JnkS9JujCtQcfC5fMWUjE1CnKwP8/edit?usp=sharing" target="_blank">Exchange Coordinates ↗</a>
+  </div>
+</div>
+
+<!-- LEG-BY-LEG BREAKDOWN -->
+<section class="legs-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Leg by Leg</span>
+    <h2 class="section-title">THE FULL BREAKDOWN</h2>
+    <p class="section-desc">Difficulty is ranked 1 (hardest) to 36 (easiest), based on distance, elevation change, and turns. Category 4 legs are the toughest. Category 1 is the most forgiving.</p>
+  </div>
+
+  <!-- SEGMENT 1: THE START -->
+  <div class="segment reveal">
+    <div class="segment-header">
+      <div class="segment-num">01</div>
+      <div class="segment-info">
+        <h3>GONZALES</h3>
+        <div class="segment-meta">PROLOGUE + LEGS 1–2 · MILES 0–10.6</div>
+      </div>
+    </div>
+    <p class="segment-desc">Your whole team runs the 1.15-mile prologue loop through downtown Gonzales together — past the courthouse, past the "Come and Take It" monument. Then the relay begins. The first legs take you southeast out of town toward Shiner.</p>
+    <table class="leg-table">
+      <thead><tr><th>Leg</th><th>Dist</th><th>Cat</th><th>Summary</th></tr></thead>
+      <tbody>
+        <tr><td class="leg-num">P</td><td class="leg-dist">1.15</td><td class="leg-cat"><span class="cat-badge cat-1">—</span></td><td class="leg-summary">Tour historic Gonzales, going around perhaps the best courthouse in all of Texas.</td></tr>
+        <tr><td class="leg-num">1</td><td class="leg-dist">4.07</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Leave Gonzales from the Memorial Museum.</td></tr>
+        <tr><td class="leg-num">2</td><td class="leg-dist">5.34</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">Straight down Hwy 90A towards Shiner, finishing at Sam Houston's Oak.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SEGMENT 2: ROLLING HILLS -->
+  <div class="segment reveal">
+    <div class="segment-header">
+      <div class="segment-num">02</div>
+      <div class="segment-info">
+        <h3>SHINER → FLATONIA → SCHULENBURG</h3>
+        <div class="segment-meta">LEGS 3–13 · MILES 10.6–61.6</div>
+      </div>
+    </div>
+    <p class="segment-desc">The stretch people photograph. Dirt roads through wildflower country, German-Czech towns with painted churches, and the actual oak where Sam Houston camped in 1836. Flatonia's Lyric Theater and Praha's St. Mary's Church are highlights.</p>
+    <table class="leg-table">
+      <thead><tr><th>Leg</th><th>Dist</th><th>Cat</th><th>Summary</th></tr></thead>
+      <tbody>
+        <tr><td class="leg-num">3</td><td class="leg-dist">4.86</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Excellent dirt road running, finishing atop a notable hill. Arguably the most rural part of the course.</td></tr>
+        <tr><td class="leg-num">4</td><td class="leg-dist">4.08</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">Continues on peaceful dirt roads before finishing on the outskirts of Shiner.</td></tr>
+        <tr><td class="leg-num">5</td><td class="leg-dist">3.92</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">Pretty much a direct shot to downtown Shiner.</td></tr>
+        <tr><td class="leg-num">6</td><td class="leg-dist">4.10</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">Leave Shiner and run back out to the Texas countryside.</td></tr>
+        <tr><td class="leg-num">7</td><td class="leg-dist">3.71</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">Panoramic views of Texas hillsides. Shortest leg on the course.</td></tr>
+        <tr><td class="leg-num">8</td><td class="leg-dist">5.18</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Dirt roads and country pavement, finishing in Old Moulton.</td></tr>
+        <tr><td class="leg-num">9</td><td class="leg-dist">4.68</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">Starts in Old Moulton, has a bit of dirt roads and finishes after a decent climb.</td></tr>
+        <tr><td class="leg-num">10</td><td class="leg-dist">3.97</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">Heads north on Highway 95 and finishes in downtown Flatonia at the Lyric Theater.</td></tr>
+        <tr><td class="leg-num">11</td><td class="leg-dist">4.31</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">Leave Flatonia, running a country leg that is not-so-flat, finishing at St. Mary's Church in Praha — one of the famous painted churches.</td></tr>
+        <tr><td class="leg-num">12</td><td class="leg-dist">6.13</td><td class="leg-cat"><span class="cat-badge cat-4">CAT 4</span></td><td class="leg-summary">Picturesque countryside leg, finishing on Wolters.</td></tr>
+        <tr><td class="leg-num">13</td><td class="leg-dist">6.05</td><td class="leg-cat"><span class="cat-badge cat-4">CAT 4</span></td><td class="leg-summary">Countryside run under train tracks. Runners exercise extra caution to cross a short bridge. Finish in downtown Schulenburg.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SEGMENT 3: HEARTLAND -->
+  <div class="segment reveal">
+    <div class="segment-header">
+      <div class="segment-num">03</div>
+      <div class="segment-info">
+        <h3>WEIMAR → COLUMBUS → EAGLE LAKE</h3>
+        <div class="segment-meta">LEGS 14–23 · MILES 61.6–117.7</div>
+      </div>
+    </div>
+    <p class="segment-desc">The hills pick up. Legs 14, 16, and 17 are the ones people warn you about — all Category 4, all over 6 miles. You'll cross the Colorado River Bridge right around sunset. By Eagle Lake, the terrain flattens out and night is coming.</p>
+    <table class="leg-table">
+      <thead><tr><th>Leg</th><th>Dist</th><th>Cat</th><th>Summary</th></tr></thead>
+      <tbody>
+        <tr><td class="leg-num">14</td><td class="leg-dist">6.38</td><td class="leg-cat"><span class="cat-badge cat-4">CAT 4</span></td><td class="leg-summary">Beautiful rolling country between Schulenburg and Weimar. Ranked #3 hardest.</td></tr>
+        <tr><td class="leg-num">15</td><td class="leg-dist">5.33</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Finishes in downtown Weimar where there will be music and fun. Net uphill.</td></tr>
+        <tr><td class="leg-num">16</td><td class="leg-dist">6.35</td><td class="leg-cat"><span class="cat-badge cat-4">CAT 4</span></td><td class="leg-summary">Cruise through residential Weimar before getting back out to the country.</td></tr>
+        <tr><td class="leg-num">17</td><td class="leg-dist">6.78</td><td class="leg-cat"><span class="cat-badge cat-4">CAT 4</span></td><td class="leg-summary">A one-turn leg, finishing at the train switching station in Glidden. Longest leg on the course.</td></tr>
+        <tr><td class="leg-num">18</td><td class="leg-dist">4.42</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">Tour of Columbus, finishing just south of I-10 at Snappy's.</td></tr>
+        <tr><td class="leg-num">19</td><td class="leg-dist">5.53</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Starting at Snappy's, finish south of the Columbus airport.</td></tr>
+        <tr><td class="leg-num">20</td><td class="leg-dist">4.57</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">A long stretch of dirt road, finishing at the Lit Silo in Altair.</td></tr>
+        <tr><td class="leg-num">21</td><td class="leg-dist">5.14</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">Crosses train tracks and the Colorado River Bridge. Finishes west of Eagle Lake.</td></tr>
+        <tr><td class="leg-num">22</td><td class="leg-dist">5.15</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">Runs through Eagle Lake and past the Buc-ee's.</td></tr>
+        <tr><td class="leg-num">23</td><td class="leg-dist">6.50</td><td class="leg-cat"><span class="cat-badge cat-4">CAT 4</span></td><td class="leg-summary">Flat, straight, long. Finishes at the giant grain elevator.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SEGMENT 4: THE NIGHT -->
+  <div class="segment reveal">
+    <div class="segment-header">
+      <div class="segment-num">04</div>
+      <div class="segment-info">
+        <h3>WALLIS → FULSHEAR → KATY</h3>
+        <div class="segment-meta">LEGS 24–30 · MILES 117.7–154.1</div>
+      </div>
+    </div>
+    <p class="segment-desc">These towns are asleep when you come through. It's dark, it's quiet, and everyone in the van is running on gas station coffee. You'll cross the Brazos River on Leg 27. By Leg 30, you're hitting Katy and Good Times Running Company throws a party to welcome you.</p>
+    <table class="leg-table">
+      <thead><tr><th>Leg</th><th>Dist</th><th>Cat</th><th>Summary</th></tr></thead>
+      <tbody>
+        <tr><td class="leg-num">24</td><td class="leg-dist">3.84</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">Quiet road (FM 1093) finishing at Country Oaks Wedding Venue.</td></tr>
+        <tr><td class="leg-num">25</td><td class="leg-dist">5.67</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Flat run finishing in Wallis at Brandt 1910. Some teams can sleep indoors here.</td></tr>
+        <tr><td class="leg-num">26</td><td class="leg-dist">5.44</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">A train sighting is likely. Flat as a track on 36, finishing at Fuel Maxx in Orchard.</td></tr>
+        <tr><td class="leg-num">27</td><td class="leg-dist">5.70</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Straight up Simonton Road, over the Brazos River, finishing at Anthonie's in Simonton.</td></tr>
+        <tr><td class="leg-num">28</td><td class="leg-dist">5.02</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">Flat leg where newer subdivisions signal you're leaving the farmland. Finishes at Fulshear Library.</td></tr>
+        <tr><td class="leg-num">29</td><td class="leg-dist">4.69</td><td class="leg-cat"><span class="cat-badge cat-1">CAT 1</span></td><td class="leg-summary">Past Fulshear High School, through Cross Creek Ranch, into Katy at HEB shopping center.</td></tr>
+        <tr><td class="leg-num">30</td><td class="leg-dist">6.08</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Mostly along well-lit Cinco Ranch Blvd. Finishes at Good Times Running Company — don't miss their Good Mornin' Party!</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SEGMENT 5: THE FINISH -->
+  <div class="segment reveal">
+    <div class="segment-header">
+      <div class="segment-num">05</div>
+      <div class="segment-info">
+        <h3>MEMORIAL PARK → BUFFALO BAYOU → SAINT ARNOLD</h3>
+        <div class="segment-meta">LEGS 31–36 · MILES 154.1–~200</div>
+      </div>
+    </div>
+    <p class="segment-desc">You hit Houston's park trails as the sun comes up. George Bush Park, Terry Hershey Trail, Memorial Park — some of the city's best running. The final leg takes you along Buffalo Bayou with the skyline right there. Your whole team joins the last runner for the finish into Saint Arnold Brewery.</p>
+    <table class="leg-table">
+      <thead><tr><th>Leg</th><th>Dist</th><th>Cat</th><th>Summary</th></tr></thead>
+      <tbody>
+        <tr><td class="leg-num">31</td><td class="leg-dist">5.32</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">Into George Bush Park, over a quarter-mile boardwalk near the Barker Reservoir.</td></tr>
+        <tr><td class="leg-num">32</td><td class="leg-dist">5.38</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">George Bush Park to Terry Hershey trail — well-shaded and scenic.</td></tr>
+        <tr><td class="leg-num">33</td><td class="leg-dist">5.91</td><td class="leg-cat"><span class="cat-badge cat-4">CAT 4</span></td><td class="leg-summary">Hike and bike trails into Memorial Park. The running hub of Houston.</td></tr>
+        <tr><td class="leg-num">34</td><td class="leg-dist">5.15</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Through Memorial Park and out along the Bayou toward downtown.</td></tr>
+        <tr><td class="leg-num">35</td><td class="leg-dist">5.72</td><td class="leg-cat"><span class="cat-badge cat-3">CAT 3</span></td><td class="leg-summary">Buffalo Bayou Park with the Houston skyline in view the whole way.</td></tr>
+        <tr><td class="leg-num">36</td><td class="leg-dist">4.19</td><td class="leg-cat"><span class="cat-badge cat-2">CAT 2</span></td><td class="leg-summary">The final leg. Around downtown's north side to Saint Arnold Brewing Company. Your team joins you for the last stretch.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- KEY EXCHANGE POINTS -->
+<section class="exchange-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Rest Stops</span>
+    <h2 class="section-title">KEY EXCHANGE POINTS</h2>
+    <p class="section-desc">These are the spots where your vans will swap runners. Some have amenities, some are just a parking lot under the stars.</p>
+  </div>
+
+  <div class="exchange-grid">
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Exchange 5 · Mile 23</span>
+      <h4>Downtown Shiner</h4>
+      <p>Home of Shiner beer. Gas stations, restaurants, and real bathrooms. Teams tend to linger here.</p>
+    </div>
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Exchange 10 · Mile 45</span>
+      <h4>Flatonia · Lyric Theater</h4>
+      <p>Downtown exchange with food options. The Lyric Theater is the backdrop.</p>
+    </div>
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Exchange 13 · Mile 62</span>
+      <h4>Downtown Schulenburg</h4>
+      <p>Look for the painted churches nearby. Good spot for a van crew meal.</p>
+    </div>
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Exchange 15 · Mile 73</span>
+      <h4>Downtown Weimar</h4>
+      <p>Music and entertainment at the exchange. Energy picks up here.</p>
+    </div>
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Exchange 18 · Mile 91</span>
+      <h4>Columbus · Snappy's</h4>
+      <p>Just south of I-10. Gas, food, and a real rest stop feel.</p>
+    </div>
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Exchange 25 · Mile 127</span>
+      <h4>Wallis · Brandt 1910</h4>
+      <p>Wedding venue turned rest stop. Some teams get a few hours of indoor sleep here.</p>
+    </div>
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Exchange 30 · Mile 154</span>
+      <h4>Katy · Good Times Running Co.</h4>
+      <p>The Good Mornin' Party. Everyone stops here. Coffee, cheering, and a second wind.</p>
+    </div>
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Exchange 35 · Mile ~190</span>
+      <h4>Memorial Park</h4>
+      <p>Houston's running hub. You're almost there. One more leg to go.</p>
+    </div>
+    <div class="exchange-card reveal">
+      <span class="exchange-tag">Finish · Mile ~200</span>
+      <h4>Saint Arnold Brewery</h4>
+      <p>Pizza. Cold beer. Medals. The Houston skyline. You did it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="resources-links">
+  <div class="section-header reveal">
+    <span class="section-tag">Downloads & Links</span>
+    <h2 class="section-title">COURSE RESOURCES</h2>
+  </div>
+
+  <div class="resource-grid">
+    <a href="https://docs.google.com/spreadsheets/d/1kwpI1x9ucrRc571hNPJX9vwGjcuPgU1NNnk9tc1E-EU/edit#gid=0" target="_blank" class="resource-link reveal">
+      
+      <div class="r-text"><h4>Leg Summary & Rankings</h4><p>Full spreadsheet with distances, rankings, categories</p></div>
+    </a>
+    <a href="https://docs.google.com/spreadsheets/d/12OmDEIjsg4AQAR5JnkS9JujCtQcfC5fMWUjE1CnKwP8/edit?usp=sharing" target="_blank" class="resource-link reveal">
+      
+      <div class="r-text"><h4>Exchange Coordinates</h4><p>GPS coordinates and hours for all exchanges</p></div>
+    </a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025_TIR_Maps.pdf" target="_blank" class="resource-link reveal">
+      
+      <div class="r-text"><h4>PDF Leg Maps</h4><p>Printable maps for each leg</p></div>
+    </a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025_TIR_Written_Directions.pdf" target="_blank" class="resource-link reveal">
+      
+      <div class="r-text"><h4>Written Directions</h4><p>Turn-by-turn for all 36 legs</p></div>
+    </a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025_TIR_Leg_Descriptions.pdf" target="_blank" class="resource-link reveal">
+      
+      <div class="r-text"><h4>Leg Descriptions</h4><p>Detailed descriptions of each leg</p></div>
+    </a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025TIR_Notes_For_Drivers.pdf" target="_blank" class="resource-link reveal">
+      
+      <div class="r-text"><h4>Notes for Drivers</h4><p>Van navigation guide</p></div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>COME AND <span class="gold">TAKE IT</span></h2>
+  <p>March 28–29, 2026 · Gonzales to Houston · 200 miles of glory</p>
+  <a href="register.html" class="btn-primary">Register Your Team →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+      <p>A Lone Star Relays event. Founded 2008 by Jay & Joy Hilscher. Tracing the Runaway Scrape from Gonzales to Houston.</p>
+      <div class="footer-social"><a href="#">IG</a><a href="#">FB</a><a href="#">YT</a><a href="#">X</a></div>
+    </div>
+    <div class="footer-links"><h4>Race Info</h4><a href="index.html">Home</a><a href="route.html">The Route</a><a href="race-info.html">Rules & Resources</a><a href="history.html">Texas History</a></div>
+    <div class="footer-links"><h4>Get Involved</h4><a href="#">Corporate Teams</a><a href="#">Volunteer</a><a href="#">Sponsor</a></div>
+    <div class="footer-links"><h4>Contact</h4><a href="mailto:jay@texasindependencerelay.com">jay@texasindependencerelay.com</a><a href="tel:5127165041">512-716-5041</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Lone Star Relays LLC.</span><span>A family tradition since 2008.</span></div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

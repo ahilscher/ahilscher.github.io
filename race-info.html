@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Race Info & Rules — Texas Independence Relay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --midnight: #0b1a2e; --navy: #132744; --gold: #c8963e; --gold-light: #dbb06b; --cream: #f5efe6; --parchment: #ede4d4; --rust: #8b3a2a; --dust: #a89478; --white: #ffffff; --text-dark: #1a1a1a; --text-body: #3d3d3d; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); background: var(--cream); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0.7rem 2.5rem; display: flex; align-items: center; justify-content: space-between; background: rgba(11,26,46,0.97); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-logo .star { font-size: 1.2rem; }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-cta { background: var(--gold) !important; color: var(--midnight) !important; padding: 0.55rem 1.5rem; border-radius: 2px; font-weight: 700 !important; letter-spacing: 2px !important; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+.mobile-toggle span { width: 26px; height: 2px; background: var(--gold); }
+
+/* PAGE HERO */
+.page-hero { background: var(--midnight); padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
+.page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 80%, rgba(200,150,62,0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 20%, rgba(139,58,42,0.08) 0%, transparent 50%); }
+.page-hero-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; position: relative; }
+.page-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--white); letter-spacing: 3px; line-height: 1.05; margin-bottom: 1rem; position: relative; }
+.page-hero h1 .gold { color: var(--gold); }
+.page-hero-desc { font-family: 'Crimson Text', serif; font-size: 1.15rem; color: rgba(255,255,255,0.6); font-style: italic; max-width: 600px; margin: 0 auto; position: relative; }
+
+/* ANCHOR NAV */
+.anchor-nav {
+  background: var(--parchment); border-bottom: 1px solid rgba(200,150,62,0.15);
+  padding: 1rem 2rem; position: sticky; top: 56px; z-index: 99;
+}
+.anchor-links {
+  max-width: 900px; margin: 0 auto;
+  display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+}
+.anchor-links a {
+  color: var(--dust); text-decoration: none; font-size: 0.75rem;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s;
+}
+.anchor-links a:hover { color: var(--gold); }
+
+/* SECTIONS */
+section { padding: 5rem 2rem; }
+.section-header { text-align: center; max-width: 700px; margin: 0 auto 3.5rem; }
+.section-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.2rem); letter-spacing: 2px; line-height: 1.05; margin-bottom: 1.2rem; }
+.section-desc { font-family: 'Crimson Text', serif; font-size: 1.15rem; color: var(--text-body); line-height: 1.7; }
+
+/* CONTENT BLOCKS */
+.content-section { max-width: 850px; margin: 0 auto; }
+
+.info-block {
+  margin-bottom: 3rem; padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(200,150,62,0.15);
+}
+.info-block:last-child { border-bottom: none; }
+
+.info-block h3 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+  letter-spacing: 2px; color: var(--midnight); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+.info-block h3 .block-icon { font-size: 1.3rem; }
+
+.info-block p, .info-block li {
+  font-family: 'Crimson Text', serif; font-size: 1.05rem;
+  color: var(--text-body); line-height: 1.75;
+}
+
+.info-block p + p { margin-top: 0.8rem; }
+
+.info-block a { color: var(--rust); font-weight: 600; }
+
+/* CHECKLIST */
+.checklist {
+  list-style: none; columns: 2; gap: 2rem;
+}
+.checklist li {
+  padding: 0.5rem 0 0.5rem 1.8rem; position: relative;
+  break-inside: avoid; font-family: 'Crimson Text', serif;
+  font-size: 1rem; color: var(--text-body); line-height: 1.5;
+}
+.checklist li::before {
+  content: '☐'; position: absolute; left: 0; top: 0.5rem;
+  color: var(--gold); font-size: 1.1rem;
+}
+
+/* RULES LIST */
+.rules-list {
+  list-style: none; counter-reset: rule;
+}
+.rules-list li {
+  padding: 1rem 0 1rem 3.5rem; position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  font-family: 'Crimson Text', serif; font-size: 1.05rem;
+  color: var(--text-body); line-height: 1.7;
+}
+.rules-list li::before {
+  counter-increment: rule; content: counter(rule, decimal-leading-zero);
+  position: absolute; left: 0; top: 1rem;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+  color: var(--gold); line-height: 1;
+}
+
+/* SCHEDULE */
+.schedule-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+}
+
+.schedule-day {
+  background: var(--white); padding: 2rem;
+  border: 1px solid rgba(200,150,62,0.1);
+}
+
+.schedule-day h3 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 2px; color: var(--midnight); margin-bottom: 0.3rem;
+}
+.schedule-day .day-date {
+  font-size: 0.75rem; color: var(--gold); font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.2rem; display: block;
+}
+
+.schedule-item {
+  display: flex; gap: 1rem; padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.schedule-item:last-child { border-bottom: none; }
+
+.schedule-time {
+  flex-shrink: 0; width: 70px; text-align: right;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--gold);
+}
+.schedule-event {
+  font-family: 'Crimson Text', serif; font-size: 0.95rem; color: var(--text-body);
+}
+
+/* DARK SECTIONS */
+.dark-section {
+  background: var(--midnight); color: var(--white);
+}
+.dark-section .section-title { color: var(--white); }
+.dark-section .section-desc { color: rgba(255,255,255,0.5); }
+.dark-section .info-block h3 { color: var(--gold-light); }
+.dark-section .info-block p { color: rgba(255,255,255,0.6); }
+.dark-section .rules-list li { color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.06); }
+
+/* APP CALLOUT */
+.app-callout {
+  background: var(--parchment);
+}
+
+.app-box {
+  max-width: 700px; margin: 0 auto; text-align: center;
+  background: var(--white); padding: 3rem 2.5rem;
+  border: 1px solid rgba(200,150,62,0.15);
+}
+
+.app-box h3 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+  letter-spacing: 2px; color: var(--midnight); margin-bottom: 0.5rem;
+}
+
+.app-box p {
+  font-family: 'Crimson Text', serif; font-size: 1.05rem;
+  color: var(--text-body); line-height: 1.7; margin-bottom: 1.5rem;
+}
+
+.app-links { display: flex; justify-content: center; gap: 1rem; }
+
+.app-link {
+  display: inline-block; padding: 0.8rem 1.8rem;
+  background: var(--midnight); color: var(--gold);
+  font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+  letter-spacing: 2px; text-decoration: none; transition: all 0.3s;
+}
+.app-link:hover { background: var(--gold); color: var(--midnight); }
+
+/* RESOURCES */
+.resource-grid-2 {
+  max-width: 850px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+}
+
+.resource-link-2 {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 1rem 1.3rem; background: var(--white);
+  border: 1px solid rgba(200,150,62,0.1);
+  text-decoration: none; transition: all 0.3s;
+}
+.resource-link-2:hover { border-color: var(--gold); transform: translateY(-2px); }
+.resource-link-2 .r-icon { font-size: 1.2rem; flex-shrink: 0; }
+.resource-link-2 h4 { font-size: 0.8rem; font-weight: 700; color: var(--midnight); }
+.resource-link-2 p { font-size: 0.7rem; color: var(--dust); }
+
+/* CTA */
+.cta-banner { background: var(--midnight); padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+.cta-banner::before { content: '★'; position: absolute; font-size: 20rem; color: rgba(200,150,62,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--white); letter-spacing: 3px; margin-bottom: 0.5rem; position: relative; }
+.cta-banner .gold { color: var(--gold); }
+.cta-banner p { font-family: 'Crimson Text', serif; font-size: 1.2rem; color: rgba(255,255,255,0.6); font-style: italic; margin-bottom: 2rem; position: relative; }
+.btn-primary { background: var(--gold); color: var(--midnight); padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 3px; text-decoration: none; display: inline-block; transition: all 0.3s; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(200,150,62,0.35); }
+
+/* FOOTER */
+footer { background: var(--midnight); color: rgba(255,255,255,0.4); padding: 3rem 2rem 2rem; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; }
+.footer-brand .nav-logo { margin-bottom: 0.8rem; font-size: 1.3rem; }
+.footer-brand p { font-size: 0.8rem; line-height: 1.6; max-width: 300px; margin-bottom: 1rem; }
+.footer-social { display: flex; gap: 0.8rem; }
+.footer-social a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; transition: color 0.3s; }
+.footer-social a:hover { color: var(--gold); }
+.footer-links h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 0.8rem; }
+.footer-links a { display: block; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.8rem; margin-bottom: 0.4rem; transition: color 0.3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; font-size: 0.7rem; }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) { .schedule-grid { grid-template-columns: 1fr; } .checklist { columns: 1; } .resource-grid-2 { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { nav { padding: 0.7rem 1.2rem; } .nav-links { display: none; } .mobile-toggle { display: flex; } section { padding: 3.5rem 1.2rem; } .anchor-nav { top: 44px; padding: 0.8rem 1rem; } .anchor-links { gap: 1rem; } .anchor-links a { font-size: 0.65rem; } .footer-inner { flex-direction: column; } .footer-bottom { flex-direction: column; gap: 0.3rem; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+  <ul class="nav-links">
+    <li><a href="route.html">The Route</a></li>
+    <li><a href="race-info.html" class="active">Race Info</a></li>
+    <li><a href="history.html">Texas History</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <span class="page-hero-tag">Everything You Need to Know</span>
+  <h1>RACE <span class="gold">INFO</span> & RULES</h1>
+  <p class="page-hero-desc">What to bring, how the vans work, safety rules, the weekend schedule, and every resource your team captain will ask for at 2 AM.</p>
+</section>
+
+<!-- ANCHOR NAV -->
+<div class="anchor-nav">
+  <div class="anchor-links">
+    <a href="#schedule">Schedule</a>
+    <a href="#checklist">What to Bring</a>
+    <a href="#vans">Van Requirements</a>
+    <a href="#safety">Safety Rules</a>
+    <a href="#app">TIR App</a>
+    <a href="#downloads">Downloads</a>
+  </div>
+</div>
+
+<!-- SCHEDULE -->
+<section id="schedule" class="dark-section">
+  <div class="section-header reveal">
+    <span class="section-tag">The Weekend</span>
+    <h2 class="section-title">RACE WEEKEND SCHEDULE</h2>
+    <p class="section-desc">Three days. Friday night is the party, Saturday is the start, Sunday is the finish.</p>
+  </div>
+
+  <div class="schedule-grid" style="max-width:900px;margin:0 auto;">
+    <div class="schedule-day reveal" style="background:rgba(255,255,255,0.04);border:1px solid rgba(200,150,62,0.15);">
+      <h3 style="color:var(--gold-light);">FRIDAY</h3>
+      <span class="day-date" style="color:var(--dust);">MARCH 27, 2026</span>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">PM</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">Teams arrive in Gonzales. Check in to lodging. Explore the town.</div>
+      </div>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">Evening</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">The TIPP — Texas Independence Pajama Party. Pajamas required. Costumes encouraged. The whole town shows up.</div>
+      </div>
+    </div>
+
+    <div class="schedule-day reveal" style="background:rgba(255,255,255,0.04);border:1px solid rgba(200,150,62,0.15);">
+      <h3 style="color:var(--gold-light);">SATURDAY</h3>
+      <span class="day-date" style="color:var(--dust);">MARCH 28, 2026</span>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">6:00 AM</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">First cannons fire. Staggered starts begin (6 AM – 2:30 PM based on predicted pace).</div>
+      </div>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">AM–PM</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">Teams move through the Rolling Hills section: Gonzales → Shiner → Flatonia → Schulenburg → Weimar.</div>
+      </div>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">Evening</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">Columbus. Colorado River crossing. The night legs begin.</div>
+      </div>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">Night</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">Eagle Lake → Wallis → Fulshear. Some teams sleep at Brandt 1910 in Wallis. Others push through.</div>
+      </div>
+    </div>
+
+    <div class="schedule-day reveal" style="background:rgba(255,255,255,0.04);border:1px solid rgba(200,150,62,0.15);grid-column:1/-1;">
+      <h3 style="color:var(--gold-light);">SUNDAY</h3>
+      <span class="day-date" style="color:var(--dust);">MARCH 29, 2026</span>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">Early AM</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">Good Mornin' Party at Good Times Running Company in Katy. Coffee, cheering, second wind.</div>
+      </div>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">AM</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">George Bush Park → Terry Hershey Trail → Memorial Park. Houston's best running, with the sun coming up.</div>
+      </div>
+      <div class="schedule-item" style="border-color:rgba(255,255,255,0.06);">
+        <div class="schedule-time">AM–Noon</div>
+        <div class="schedule-event" style="color:rgba(255,255,255,0.6);">Buffalo Bayou with the skyline. Final leg. Entire team joins the last runner. Finish at Saint Arnold Brewery. Pizza, beer, medals.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT TO BRING -->
+<section id="checklist">
+  <div class="section-header reveal">
+    <span class="section-tag">Be Prepared</span>
+    <h2 class="section-title">WHAT TO BRING</h2>
+    <p class="section-desc">Pack for running, sleeping in a van, and everything in between. Your captain will thank you.</p>
+  </div>
+
+  <div class="content-section">
+    <div class="info-block reveal">
+      <h3>RUNNING GEAR</h3>
+      <ul class="checklist">
+        <li>Running shoes (broken in, not brand new)</li>
+        <li>Multiple running outfits — you'll want to change between legs</li>
+        <li>Reflective vest or gear (required for night legs)</li>
+        <li>Headlamp with fresh batteries (required for night legs)</li>
+        <li>Blinking rear safety light (required for night legs)</li>
+        <li>Light jacket or arm sleeves (March mornings can be chilly)</li>
+        <li>Hat or visor for sun protection</li>
+        <li>Body Glide or anti-chafe</li>
+        <li>Sunscreen</li>
+      </ul>
+    </div>
+
+    <div class="info-block reveal">
+      <h3>VAN ESSENTIALS</h3>
+      <ul class="checklist">
+        <li>Sleeping bag or blanket for van naps</li>
+        <li>Pillow (you'll be grateful)</li>
+        <li>Baby wipes (showers are not really a thing)</li>
+        <li>Change of regular clothes</li>
+        <li>Towel</li>
+        <li>Deodorant (for the sake of your van-mates)</li>
+        <li>Flip flops or camp shoes</li>
+        <li>Phone charger and portable battery pack</li>
+        <li>Cash (small town gas stations)</li>
+      </ul>
+    </div>
+
+    <div class="info-block reveal">
+      <h3>FUEL</h3>
+      <ul class="checklist">
+        <li>Water bottles or hydration pack</li>
+        <li>Electrolyte mix (Nuun, Liquid IV, etc.)</li>
+        <li>Energy gels or chews for your legs</li>
+        <li>Snacks that won't melt — granola bars, trail mix, fruit</li>
+        <li>Cooler with ice for the van</li>
+        <li>Coffee supplies (or just count on gas stations)</li>
+        <li>Ibuprofen</li>
+        <li>Stomach meds (just in case)</li>
+      </ul>
+    </div>
+
+    <div class="info-block reveal">
+      <h3>TEAM STUFF</h3>
+      <ul class="checklist">
+        <li>Printed leg maps and written directions (don't rely 100% on your phone)</li>
+        <li>Team matching shirts or costumes (not required, but it's half the fun)</li>
+        <li>Decorations for your van</li>
+        <li>Signs to cheer for your runner</li>
+        <li>Sharpie for signing each other's bibs</li>
+        <li>Camera</li>
+        <li>Bluetooth speaker for the van</li>
+        <li>Good attitude about sleeping in a van</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VAN REQUIREMENTS -->
+<section id="vans" class="dark-section">
+  <div class="section-header reveal">
+    <span class="section-tag">Your Vehicle</span>
+    <h2 class="section-title">VAN REQUIREMENTS</h2>
+    <p class="section-desc">You provide the vans. TIR provides the route. Here's what you need to know.</p>
+  </div>
+
+  <div class="content-section">
+    <div class="info-block reveal">
+      <h3 style="color:var(--gold-light);">THE BASICS</h3>
+      <p>Most teams use two 12-passenger or 15-passenger rental vans. You split your team of 12 into two groups of 6 — Van 1 runs a set of legs, then rests while Van 2 takes over. The vans leapfrog along the route, meeting your current runner at each exchange point.</p>
+      <p>Some teams run with one van and fewer people. Some teams have brought an RV as a mobile base camp. As long as you can get your runners to the exchange points safely, you have flexibility.</p>
+    </div>
+
+    <div class="info-block reveal">
+      <h3 style="color:var(--gold-light);">VAN SAFETY RULES</h3>
+      <ul class="rules-list" style="color:rgba(255,255,255,0.6);">
+        <li>Vans must have working headlights, taillights, and hazard lights. No exceptions.</li>
+        <li>When following your runner at night, use hazard lights and maintain a safe distance behind. Do not blind the runner or oncoming traffic.</li>
+        <li>Vans must pull completely off the road at exchange points. Do not block traffic or park on curves.</li>
+        <li>Designated drivers should not be running legs immediately before or after driving. Sleep-deprived driving is the biggest safety risk at any relay.</li>
+        <li>No alcohol consumption in the van during the relay. Save it for Saint Arnold.</li>
+        <li>Keep the van stocked with water, first aid supplies, and emergency contact info.</li>
+        <li>If a runner feels unsafe on any leg (traffic, weather, injury), the van should pick them up. The race isn't worth a trip to the ER.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY RULES -->
+<section id="safety">
+  <div class="section-header reveal">
+    <span class="section-tag">Stay Safe</span>
+    <h2 class="section-title">SAFETY & RACE RULES</h2>
+    <p class="section-desc">TIR has been running since 2008 with an excellent safety record. Let's keep it that way.</p>
+  </div>
+
+  <div class="content-section">
+    <div class="info-block reveal">
+      <h3>NIGHT RUNNING (REQUIRED)</h3>
+      <p>Night legs are roughly Legs 20–30, depending on your team's start time. For any leg running between sunset and sunrise, every runner is required to have a reflective vest, a front-facing headlamp, and a rear-facing blinking red light. Your van should follow behind with hazard lights on.</p>
+      <p>These aren't suggestions. Teams not in compliance may be asked to stop until the runner is properly equipped.</p>
+    </div>
+
+    <div class="info-block reveal">
+      <h3>MEDICAL & EMERGENCIES</h3>
+      <p>There is no medical staff on the course between exchange points. Each team is responsible for their own first aid. Bring a basic kit (bandages, pain relief, ice packs, blister care). If a runner needs medical attention, call 911 first, then notify race organizers.</p>
+      <p>Report any safety concerns or course hazards using the <a href="https://forms.gle/of7X6a5cpwR5Ldbr7" target="_blank">Safety Enhancement Form</a> or call Jay at 512-716-5041.</p>
+    </div>
+
+    <div class="info-block reveal">
+      <h3>RELAY EXCHANGE RULES</h3>
+      <p>Runners exchange a wristband at designated exchange points. The incoming runner must hand the wristband to the outgoing runner — no passing it through van windows or skipping ahead. Exchange points have specific operating hours, so plan your pace accordingly. Your team captain should have the exchange coordinates spreadsheet.</p>
+    </div>
+
+    <div class="info-block reveal">
+      <h3>ROAD RULES</h3>
+      <p>Runners must stay on the shoulder or as far to the left side of the road as safely possible (facing traffic). Obey all traffic signals. Do not run on private property. On shoulderless bridges, your van may escort you — race rules allow this.</p>
+      <p>This is a USATF-sanctioned event. Standard USATF road racing rules apply. The full rulebook is available from the race directors.</p>
+    </div>
+
+    <div class="info-block reveal">
+      <h3>WEATHER</h3>
+      <p>Late March in central Texas can be anything from 40°F mornings to 85°F afternoons. Rain is possible. Pack for layers. Night legs will be colder than you think, especially between Eagle Lake and Wallis when you're tired and it's 3 AM.</p>
+    </div>
+
+    <div class="info-block reveal">
+      <h3>WAIVERS</h3>
+      <p>All participants must sign a waiver. Runners under 18 need a parent/guardian-signed <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/TIR_Waiver.pdf" target="_blank">minor waiver (PDF)</a>. Bring signed copies to the start.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIR APP -->
+<section id="app" class="app-callout">
+  <div class="app-box reveal">
+    <h3>THE LONE STAR RELAYS APP</h3>
+    <p>Live team tracking, leg information, exchange point maps, and notifications. Download it before race weekend — it's the best way to follow the race in real time.</p>
+    <div class="app-links">
+      <a href="https://apps.apple.com/us/app/lone-star-relays/id1558232635" target="_blank" class="app-link">iOS ↗</a>
+      <a href="https://play.google.com/store/apps/details?id=com.texasindependencerelay2.app" target="_blank" class="app-link">Android ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section id="downloads">
+  <div class="section-header reveal">
+    <span class="section-tag">Resources</span>
+    <h2 class="section-title">DOWNLOADS & LINKS</h2>
+    <p class="section-desc">Everything your team needs, all in one place. Most files are updated annually — check back closer to race day for the latest versions.</p>
+  </div>
+
+  <div class="resource-grid-2">
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025_TIR_Maps.pdf" target="_blank" class="resource-link-2 reveal">
+      <div><h4>PDF Leg Maps</h4><p>Printable maps for all 36 legs</p></div>
+    </a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025_TIR_Written_Directions.pdf" target="_blank" class="resource-link-2 reveal">
+      <div><h4>Written Directions</h4><p>Turn-by-turn for each leg</p></div>
+    </a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025_TIR_Leg_Descriptions.pdf" target="_blank" class="resource-link-2 reveal">
+      <div><h4>Leg Descriptions</h4><p>What to expect on each leg</p></div>
+    </a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/2025TIR_Notes_For_Drivers.pdf" target="_blank" class="resource-link-2 reveal">
+      <div><h4>Notes for Drivers</h4><p>Van navigation guide</p></div>
+    </a>
+    <a href="https://docs.google.com/spreadsheets/d/1kwpI1x9ucrRc571hNPJX9vwGjcuPgU1NNnk9tc1E-EU/edit#gid=0" target="_blank" class="resource-link-2 reveal">
+      <div><h4>Leg Summary & Rankings</h4><p>Distance, rank, and category for all legs</p></div>
+    </a>
+    <a href="https://docs.google.com/spreadsheets/d/12OmDEIjsg4AQAR5JnkS9JujCtQcfC5fMWUjE1CnKwP8/edit?usp=sharing" target="_blank" class="resource-link-2 reveal">
+      <div><h4>Exchange Coordinates</h4><p>GPS coords and hours for all exchanges</p></div>
+    </a>
+    <a href="https://docs.google.com/presentation/d/1rfzu4G3GPjZY36XYI3h6jymX9-3Udfk-o7_6zDaJRkk/edit?usp=sharing" target="_blank" class="resource-link-2 reveal">
+      <div><h4>Parking Instructions</h4><p>Where to park at start and finish</p></div>
+    </a>
+    <a href="https://lonestarrelays.com/wp-content/uploads/2025/02/TIR_Waiver.pdf" target="_blank" class="resource-link-2 reveal">
+      <div><h4>Waiver (PDF)</h4><p>Required for all participants</p></div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>COME AND <span class="gold">TAKE IT</span></h2>
+  <p>March 28–29, 2026 · Gonzales to Houston · 200 miles of glory</p>
+  <a href="register.html" class="btn-primary">Register Your Team →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo"><span class="star">★</span> Texas Independence Relay</a>
+      <p>A Lone Star Relays event. Founded 2008 by Jay & Joy Hilscher. Tracing the Runaway Scrape from Gonzales to Houston.</p>
+      <div class="footer-social"><a href="#">IG</a><a href="#">FB</a><a href="#">YT</a><a href="#">X</a></div>
+    </div>
+    <div class="footer-links"><h4>Race Info</h4><a href="index.html">Home</a><a href="route.html">The Route</a><a href="race-info.html">Rules & Resources</a><a href="history.html">Texas History</a></div>
+    <div class="footer-links"><h4>Get Involved</h4><a href="#">Corporate Teams</a><a href="#">Volunteer</a><a href="#">Sponsor</a></div>
+    <div class="footer-links"><h4>Contact</h4><a href="mailto:jay@texasindependencerelay.com">jay@texasindependencerelay.com</a><a href="tel:5127165041">512-716-5041</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Lone Star Relays LLC.</span><span>A family tradition since 2008.</span></div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 60); observer.unobserve(entry.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
